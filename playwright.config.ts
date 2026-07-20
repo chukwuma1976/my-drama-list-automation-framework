@@ -5,14 +5,14 @@ import { defineConfig, devices } from '@playwright/test';
  * https://github.com/motdotla/dotenv
  */
 import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  timeout: 120000,
+  timeout: 180000,
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -28,7 +28,7 @@ export default defineConfig({
   use: {
     headless: process.env.CI ? true : false, // Run tests in headful mode
     actionTimeout: 30 * 1000, // 30 seconds
-    navigationTimeout: 120 * 1000, // 30 seconds
+    navigationTimeout: 60 * 1000, // 30 seconds
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 

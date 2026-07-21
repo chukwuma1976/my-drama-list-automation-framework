@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { password, username } from '../../main/config';
-import { LoginPage } from '../../main/page/LoginPage';
+import { LoginPage } from '../../main/pages/LoginPage';
 import { missingCredentials, invalidCredentials } from '../../main/utils/DataGenerator';
 
 test.describe("Navigate to My Drama List", () => {

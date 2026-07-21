@@ -10,6 +10,7 @@ export class NavBarComponent {
     calendarTab: Locator;
     searchInput: Locator;
     languageButton: Locator;
+    userAvatar: Locator;
 
     constructor(private page: Page) {
         this.page = page;
@@ -20,6 +21,7 @@ export class NavBarComponent {
         this.calendarTab = this.navBarContainer.getByRole('link', { name: 'Calendar', exact: true });
         this.languageButton = this.page.locator("div#mdl-lang");
         this.searchInput = this.navBarContainer.getByRole('textbox', { name: 'Find Asian Dramas, Movies,' });
+        this.userAvatar = this.page.locator("img.header-user-avatar");
     }
 
     async gotoHomePage() {
@@ -65,6 +67,11 @@ export class NavBarComponent {
 
     async confirmNavigationtoSearchPage() {
         expect(this.page.url()).toContain("search");
+    }
+
+    async signOutUser() {
+        await this.clickTab(this.userAvatar);
+        await this.page.getByRole("link", { name: "Sign out" }).click();
     }
 
     async clickTab(tab: Locator) {

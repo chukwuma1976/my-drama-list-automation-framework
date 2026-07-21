@@ -3,25 +3,26 @@ import { generateFullApiUrl } from "../../main/config"
 import { dramaSlug } from "../../main/utils/DataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import { dramaCastAndCrewSchema } from "../../main/schemas/dramaCastAndCrewSchema";
+import { dramaAllEpisodesDetailsSchema } from "../../main/schemas/dramaAllEpisodesDetailsSchema";
 
-test.describe("Get cast and crew", () => {
+test.describe("Get all drama episode details", () => {
 
     const ajv = new Ajv();
     addFormats(ajv);
-    const validate = ajv.compile(dramaCastAndCrewSchema);
+    const validate = ajv.compile(dramaAllEpisodesDetailsSchema);
 
-    test("get drama cast and crew for a drama", async ({ request }) => {
-        const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/cast`));
+    test(`get drama details for all episodes in a drama`, async ({ request }) => {
+        const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/episodes/all`));
         expect(response.status()).toBe(200);
         const result = await response.json();
         expect(validate(result)).toBeTruthy();
     })
 
-    test("get drama cast and crew with invalid parameter", async ({ request }) => {
-        const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/cast`));
+    test("get drama details with an invalid parameter", async ({ request }) => {
+        const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/episodes/all`));
         expect(response.status()).toBe(500);
         const result = await response.json();
         expect(result.detail.description).toBe("Internal server error");
     })
+
 })

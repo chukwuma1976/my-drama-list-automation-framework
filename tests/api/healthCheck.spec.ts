@@ -4,7 +4,7 @@ import { generateFullApiUrl } from "../../main/config"
 test.describe("Health check", () => {
 
 
-    test("get drama details for a drama", async ({ request }) => {
+    test("health check endpoint", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/health`));
         expect(response.status()).toBe(200);
         const result = await response.json();

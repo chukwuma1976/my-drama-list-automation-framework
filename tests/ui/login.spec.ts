@@ -10,7 +10,7 @@ test.describe("Navigate to My Drama List", () => {
     loginPage = new LoginPage(page);
   })
 
-  test('has title', async ({ page }) => {
+  test('login with valid credentials', async ({ page }) => {
     await loginPage.navigateToApp();
     await loginPage.clickLogin();
     await loginPage.loginUser(username, password);

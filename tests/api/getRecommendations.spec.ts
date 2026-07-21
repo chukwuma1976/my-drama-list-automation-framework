@@ -11,7 +11,7 @@ test.describe("Get recommendations", () => {
     addFormats(ajv);
     const validate = ajv.compile(dramaRecommendations);
 
-    test("get drama details for a drama", async ({ request }) => {
+    test("get recommendations for a drama", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/recs`));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -19,14 +19,14 @@ test.describe("Get recommendations", () => {
         expect(validate(result)).toBeTruthy();
     })
 
-    test("get drama details with missing parameter", async ({ request }) => {
+    test("get recommendations with missing parameter", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id//recs`));
         expect(response.status()).toBe(500);
         const result = await response.json();
         expect(result.detail.description).toBe("Internal server error");
     })
 
-    test("get drama details with invalid parameter", async ({ request }) => {
+    test("get recommendations with invalid parameter", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/recs`));
         expect(response.status()).toBe(500);
         const result = await response.json();

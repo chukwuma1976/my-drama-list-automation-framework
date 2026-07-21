@@ -27,3 +27,21 @@ export const dramaList = [
 ]
 
 export const dramaSlug = "25560-moving";
+
+export const actors = [
+    '960-ryu-seung-ryong',
+    '300-han-hyo-joo',
+    '433-jo-in-sung',
+    '284-cha-tae-hyun',
+    '1271-ryu-seung-beom',
+    '3044-kim-sung-kyun',
+    '3622-kim-hee-won',
+    '2520-moon-seung-geun',
+    '16597-lee-jung-ha',
+    '22074-go-yoon-jung',
+    '19380-kim-do-hoon'
+]
+
+export const dramaListCodes = ["MLOPW2Z3", "LAlEwM51", "1zEmx8V4", "74KzbNr3"]
+
+export const userListCode = "CASmooth"

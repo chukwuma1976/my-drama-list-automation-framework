@@ -45,3 +45,13 @@ export const actors = [
 export const dramaListCodes = ["MLOPW2Z3", "LAlEwM51", "1zEmx8V4", "74KzbNr3"]
 
 export const userListCode = "CASmooth"
+
+export const daysOfTheWeek = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+]

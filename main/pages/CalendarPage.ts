@@ -29,10 +29,6 @@ export class CalendarPage {
 
     }
 
-    async blockAds() {
-        await this.page.route("**/*ad**", async route => route.abort());
-    }
-
     async clickAllToggleButton() {
         const button = this.page.getByRole("button", { name: "All" });
         await expect(button).toBeVisible();
@@ -64,6 +60,21 @@ export class CalendarPage {
 
     async changeFormat() {
         await this.page.locator("div.display-format").click();
+    }
+
+    async clickQuarterTab(quarter: number, twoDigitYear: string) {
+        await this.page.getByText(`Q${quarter} '${twoDigitYear}`).click();
+    }
+
+    async confirmQuarterContainsMoreDramasThan(airingDramas: any) {
+        await expect(this.page.locator("#footer")).toBeVisible();
+        const quarterDramas = this.page.locator('div.el-card');
+        const quarterDramaCount = (await quarterDramas.all()).length;
+        const airingDramaCount = daysOfTheWeek
+            .map((day: string) => airingDramas[day].length)
+            .reduce((prev: number, current: number) => prev + current);
+        expect(quarterDramaCount).toBeGreaterThan(airingDramaCount);
+
     }
 
 }

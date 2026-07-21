@@ -2,11 +2,13 @@ import { test } from '@playwright/test';
 import { password, username } from '../../main/config';
 import { LoginPage } from '../../main/pages/LoginPage';
 import { missingCredentials, invalidCredentials } from '../../main/utils/DataGenerator';
+import { blockAds } from '../../main/utils/popupBlockers';
 
 test.describe("Navigate to My Drama List", () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
+    await blockAds(page);
     loginPage = new LoginPage(page);
   })
 

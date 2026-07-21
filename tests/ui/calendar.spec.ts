@@ -3,6 +3,8 @@ import { generateFullApiUrl, password, username } from '../../main/config';
 import { LoginPage } from '../../main/pages/LoginPage';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { CalendarPage } from '../../main/pages/CalendarPage';
+import { currentQuarter, twoDigitYear } from '../../main/utils/DateTimeGenerator';
+import { blockAds } from '../../main/utils/popupBlockers';
 
 test.describe("Check calendar page for currently airing dramas", () => {
 
@@ -15,12 +17,13 @@ test.describe("Check calendar page for currently airing dramas", () => {
 
         navBar = new NavBarComponent(page);
         calendarPage = new CalendarPage(page);
+        await blockAds(page);
         await navBar.gotoHomePage();
         await navBar.clickCalendar();
     })
 
     test('Check a drama that is airing for each day', async ({ page }) => {
-        await calendarPage.blockAds();
+        // await calendarPage.blockAds();
         await navBar.confirmNavigationToCalendarPage();
         await calendarPage.checkEachDayForAiringDrama(airingDramas);
     });
@@ -30,7 +33,7 @@ test.describe("Check calendar page for currently airing dramas", () => {
         await loginPage.clickLogin();
         await loginPage.loginUser(username, password);
 
-        await calendarPage.blockAds();
+        // await calendarPage.blockAds();
         await calendarPage.clickMyListToggleButton();
         const myListCount = await calendarPage.getCalendarCardCount();
 
@@ -46,6 +49,12 @@ test.describe("Check calendar page for currently airing dramas", () => {
         expect(filterCount).not.toBe(totalCount);
     });
 
+    test('Check for seasonal dramas', async ({ page }) => {
+        // await calendarPage.blockAds();
+        await navBar.confirmNavigationToCalendarPage();
+        await calendarPage.clickQuarterTab(currentQuarter, twoDigitYear);
+        await calendarPage.confirmQuarterContainsMoreDramasThan(airingDramas);
+    });
 
     async function getCurrentlyAiringDramas(request: APIRequestContext): Promise<any> {
         const response = await request.get(generateFullApiUrl("/api/calendar"));

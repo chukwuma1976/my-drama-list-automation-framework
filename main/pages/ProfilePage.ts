@@ -1,16 +1,23 @@
 import { Locator, Page, expect } from "@playwright/test";
 import path from "path";
+import { generateFullUiUrl } from "../config";
 
 export class ProfilePage {
     private saveButton: Locator;
     private locationInput: Locator;
     private biographyInput: Locator;
+    private profileURL: string;
 
     constructor(private page: Page) {
         this.page = page;
+        this.profileURL = generateFullUiUrl("account/profile");
         this.saveButton = page.getByRole("button", { name: "Save changes" });
         this.locationInput = page.getByPlaceholder("Add a location");
         this.biographyInput = page.locator(".tiptap");
+    }
+
+    async gotoProfilePage() {
+        await this.page.goto(this.profileURL);
     }
 
     async clickSaveChanges() {

@@ -19,14 +19,10 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         profilePage = new ProfilePage(page);
     })
 
-    test('Login and edit profile about me section', async ({ page }) => {
+    test('Edit profile about me section', async ({ page, browser }) => {
 
-        // Login and navigate to profile section
-        await loginPage.navigateToApp();
-        await loginPage.clickLogin();
-        await loginPage.loginUser(username, password);
-        await loginPage.dismissNotification();
-
+        //Navigate to profile section
+        await navBar.gotoHomePage();
         await navBar.clickUserAvatar();
         await navBar.clickSettings();
         await loginPage.dismissNotification();
@@ -37,23 +33,23 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         await profilePage.enterBiography(biography);
         await profilePage.clickSaveChanges();
 
-        //Logout
-        await navBar.signOutUser();
 
-        //Log back in
-        await loginPage.clickLogin();
-        await loginPage.loginUser(username, password);
-        await loginPage.dismissNotification();
+        //Create new page and navigate to profile page there
+        const context = await browser.newContext({
+            storageState: 'playwright/.auth/user.json'
+        });
 
-        await navBar.clickUserAvatar();
-        await navBar.clickSettings();
-        await loginPage.dismissNotification();
+        const page2 = await context.newPage();
+        await blockAds(page2);
+        const profilePage2 = new ProfilePage(page2);
+        await profilePage2.gotoProfilePage();
 
-        //validate fields
-        await profilePage.verifyProfileImageIsVisible();
-        await profilePage.validateLocationField(location);
-        await profilePage.validateBiographyField(biography)
+        //validate fields in new page
+        await profilePage2.verifyProfileImageIsVisible();
+        await profilePage2.validateLocationField(location);
+        await profilePage2.validateBiographyField(biography)
 
+        await context.close();
     });
 
     test.afterEach(async ({ page }) => {

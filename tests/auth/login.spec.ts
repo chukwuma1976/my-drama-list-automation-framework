@@ -4,7 +4,7 @@ import { LoginPage } from '../../main/pages/LoginPage';
 import { missingCredentials, invalidCredentials } from '../../main/utils/DataGenerator';
 import { blockAds } from '../../main/utils/popupBlockers';
 
-test.describe("Navigate to My Drama List", () => {
+test.describe("Test login scenarios", () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
@@ -20,7 +20,7 @@ test.describe("Navigate to My Drama List", () => {
     await loginPage.confirmUserLoggedIn();
   });
 
-  missingCredentials.forEach(async (credential) => {
+  missingCredentials.forEach((credential) => {
     test(`Testing login scenario: ${credential.scenario}`, async ({ page }) => {
       await loginPage.navigateToApp();
       await loginPage.clickLogin();

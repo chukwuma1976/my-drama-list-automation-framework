@@ -1,14 +1,21 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { daysOfTheWeek } from "../utils/DataGenerator";
+import { generateFullUiUrl } from "../config";
 
 export class CalendarPage {
     private calendarResults: Locator;
     private filterPanel: Locator;
+    private URL: string;
 
     constructor(private page: Page) {
         this.page = page;
         this.calendarResults = page.locator("#episode-calendar-results");
         this.filterPanel = this.page.locator("div.calendar-filter-panel");
+        this.URL = generateFullUiUrl("episode-calendar");
+    }
+
+    async gotoCalendarPage() {
+        await this.page.goto(this.URL);
     }
 
     async checkEachDayForAiringDrama(airingDramas: any) {

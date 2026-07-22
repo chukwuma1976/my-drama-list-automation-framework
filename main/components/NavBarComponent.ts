@@ -3,14 +3,14 @@ import { BASE_UI_URL } from "../config";
 
 export class NavBarComponent {
 
-    navBarContainer: Locator;
-    homeTab: Locator;
-    exploreTab: Locator;
-    communityTab: Locator;
-    calendarTab: Locator;
-    searchInput: Locator;
-    languageButton: Locator;
-    userAvatar: Locator;
+    private navBarContainer: Locator;
+    private homeTab: Locator;
+    private exploreTab: Locator;
+    private communityTab: Locator;
+    private calendarTab: Locator;
+    private searchInput: Locator;
+    private languageButton: Locator;
+    private userAvatar: Locator;
 
     constructor(private page: Page) {
         this.page = page;
@@ -48,6 +48,10 @@ export class NavBarComponent {
         await this.clickTab(this.languageButton);
     }
 
+    async clickUserAvatar() {
+        await this.clickTab(this.userAvatar);
+    }
+
     async confirmCalendarTabPresent() {
         await expect(this.calendarTab).toBeVisible();
     }
@@ -77,6 +81,10 @@ export class NavBarComponent {
     async clickTab(tab: Locator) {
         await expect(tab).toBeVisible();
         await tab.click();
+    }
+
+    async clickSettings() {
+        await this.page.getByRole("link", { name: "Settings" }).click();
     }
 
 }

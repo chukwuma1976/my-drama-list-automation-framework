@@ -55,3 +55,13 @@ export const daysOfTheWeek = [
     'Saturday',
     'Sunday'
 ]
+
+export const searchableDrama = {
+    title: "The WONDERfools",
+    slug: "768853-the-b-team"
+}
+
+export const searchableActress = {
+    name: "Park Eun Bin",
+    slug: "1897-park-eun-bin"
+}

@@ -2,8 +2,8 @@ import { expect, Locator, Page } from "@playwright/test";
 import { daysOfTheWeek } from "../utils/DataGenerator";
 
 export class CalendarPage {
-    calendarResults: Locator;
-    filterPanel: Locator;
+    private calendarResults: Locator;
+    private filterPanel: Locator;
 
     constructor(private page: Page) {
         this.page = page;

@@ -6,7 +6,6 @@ export async function blockAds(page: Page) {
         const url = route.request().url();
 
         if (blockedDomains.some(domain => url.includes(domain))) {
-            console.log(`Blocked: ${url}`);
             return route.abort();
         }
 

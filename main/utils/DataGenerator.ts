@@ -65,3 +65,8 @@ export const searchableActress = {
     name: "Park Eun Bin",
     slug: "1897-park-eun-bin"
 }
+
+export const updateInfo = {
+    location: "Somewhere in automation land",
+    biography: "I am an automation tester who enjoys the Asian drama experience."
+}

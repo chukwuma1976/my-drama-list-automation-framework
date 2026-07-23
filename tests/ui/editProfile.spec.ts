@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-import { password, username } from '../../main/config';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
 import { LoginPage } from '../../main/pages/LoginPage';
@@ -22,9 +21,7 @@ test.describe("Test that user can edit their profile as end to end test", () => 
     test('Edit profile about me section', async ({ page, browser }) => {
 
         //Navigate to profile section
-        await navBar.gotoHomePage();
-        await navBar.clickUserAvatar();
-        await navBar.clickSettings();
+        await profilePage.gotoProfilePage();
         await loginPage.dismissNotification();
 
         //update profile
@@ -50,6 +47,17 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         await profilePage2.validateBiographyField(biography)
 
         await context.close();
+    });
+
+    test('Edit profile picture by uploading a non image file return a 500 server error', async ({ page }) => {
+
+        //Navigate to profile section
+        await profilePage.gotoProfilePage();
+        await loginPage.dismissNotification();
+
+        //upload non image file
+        await profilePage.uploadNonImageFile();
+
     });
 
     test.afterEach(async ({ page }) => {

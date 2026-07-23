@@ -44,7 +44,7 @@ test.describe("Search for a drama and validate results", () => {
         await dramaDetailsPage.validateStats(result);
         await dramaDetailsPage
             .validateMiscellaneous(result.also_known_as, result.genres, result.tags, result.native_title);
-        await dramaDetailsPage.validateRating(result.rating, result.title);
+        await dramaDetailsPage.validateRating(result.rating);
 
 
     });

@@ -70,3 +70,9 @@ export const updateInfo = {
     location: "Somewhere in automation land",
     biography: "I am an automation tester who enjoys the Asian drama experience."
 }
+
+export const dramaToAdd = {
+    title: "Crash Landing on You (2019)",
+    slug: "35729-emergency-lands-of-love",
+    url: "https://mydramalist.com/35729-emergency-lands-of-love"
+}

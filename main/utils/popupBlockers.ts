@@ -12,3 +12,7 @@ export async function blockAds(page: Page) {
         return route.continue();
     });
 }
+
+export async function dismissNotification(page: Page) {
+    await page.locator("div.el-notification__closeBtn.el-icon-close").click();
+}

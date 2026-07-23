@@ -11,6 +11,7 @@ export class NavBarComponent {
     private searchInput: Locator;
     private languageButton: Locator;
     private userAvatar: Locator;
+    private homeButton: Locator;
 
     constructor(private page: Page) {
         this.page = page;
@@ -22,10 +23,15 @@ export class NavBarComponent {
         this.languageButton = this.page.locator("div#mdl-lang");
         this.searchInput = this.navBarContainer.getByRole('textbox', { name: 'Find Asian Dramas, Movies,' });
         this.userAvatar = this.page.locator("img.header-user-avatar");
+        this.homeButton = this.page.getByRole('link', { name: 'MyDramaList v6.7' });
     }
 
     async gotoHomePage() {
         await this.page.goto(BASE_UI_URL, { waitUntil: "domcontentloaded" });
+    }
+
+    async clickHomebutton() {
+        await this.homeButton.click();
     }
 
     async clickHome() {
@@ -85,6 +91,10 @@ export class NavBarComponent {
 
     async clickSettings() {
         await this.page.getByRole("link", { name: "Settings" }).click();
+    }
+
+    async clickWatchList() {
+        await this.page.getByRole("link", { name: "My Watchlist" }).click();
     }
 
 }

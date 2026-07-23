@@ -25,6 +25,12 @@ export class ProfilePage {
     }
 
     async uploadImage() {
+        this.page.on("response", response => {
+            if (response.url().includes("upload")) {
+                expect(response.status()).toBe(200);
+            }
+        })
+
         const filePath = path.join(__dirname, '../resources/profilepic.jpg');
         await this.page.locator("input[type='file']").setInputFiles(filePath);
 
@@ -33,6 +39,17 @@ export class ProfilePage {
 
     async verifyProfileImageIsVisible() {
         await expect(this.page.locator(".account-profile__avatar img")).toBeVisible();
+    }
+
+    async uploadNonImageFile() {
+        //Listen for file upload request and assert that it failed
+        this.page.on("response", response => {
+            if (response.url().includes("upload")) {
+                expect(response.status()).toBe(500);
+            }
+        })
+        const filePath = path.join(__dirname, '../resources/nonImageFile.txt');
+        await this.page.locator("input[type='file']").setInputFiles(filePath);
     }
 
     async addALocation(location: string) {

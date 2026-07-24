@@ -69,4 +69,8 @@ export class DramaDetailsPage {
         await expect(userRating).toContainText(rating);
     }
 
+    async clickReviewsLink() {
+        await this.page.getByRole('link', { name: 'Reviews', exact: true }).click();
+    }
+
 }

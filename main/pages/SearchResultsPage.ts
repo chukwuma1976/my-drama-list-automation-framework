@@ -17,4 +17,11 @@ export class SearchResultsPage {
         await expect(noResultsMessage).toBeVisible();
     }
 
+    async confirmAbsenceOfSearchResult() {
+        // Target the strong element inside the unique p tag
+        const innerStrong = this.page.locator('p.m-b-sm strong');
+        // Assert that the <strong> element is not in the DOM
+        await expect(innerStrong).not.toBeAttached();
+    }
+
 }

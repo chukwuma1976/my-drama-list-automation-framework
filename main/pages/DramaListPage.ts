@@ -13,6 +13,11 @@ export class DramaListPage {
         await this.page.goto(this.dramaListUrl);
     }
 
+    async confirmOnRatingsListPage(name: string) {
+        await expect(this.page.getByText(name)).toBeVisible()
+        expect(this.page.url()).toContain(name);
+    }
+
     async clickEditDrama(title: string) {
         const dramaCell = this.page
             .getByRole("cell", { name: title })
@@ -35,7 +40,29 @@ export class DramaListPage {
 
     async clickOnNavigationTabByWatchStatus(status: string) {
         const tab = this.page.getByRole("link", { name: status });
+        await expect(tab).toBeVisible();
         await tab.click();
+    }
+
+    async verifyPresenceOfAllDramasInList(dramaList: any[]) {
+        for (const drama of dramaList) {
+
+            const { title, status, rating } = drama;
+
+            await this.clickOnNavigationTabByWatchStatus(this.convertToTab(status));
+            await this.confirmPresenceOfDrama(title);
+            if (rating !== "") {
+                await this.confirmPresenceOfUserRating(title, rating);
+            }
+        }
+    }
+
+    convertToTab(status: string) {
+        switch (status) {
+            case "Watching": return "Currently Watching"
+            case "On-hold": return "On Hold"
+            default: return status
+        }
     }
 
 }

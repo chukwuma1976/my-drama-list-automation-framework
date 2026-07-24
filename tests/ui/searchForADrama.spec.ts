@@ -57,5 +57,39 @@ test.describe("Search for a drama and validate results", () => {
         await searchResultsPage.confirmNoMatchingResultsMessage();
     });
 
+    test('Enter an blank search', async ({ page, request }) => {
+
+        await navBar.enterAndPerformSearch("");
+        await navBar.confirmNavigationtoSearchPage();
+
+        await searchResultsPage.confirmAbsenceOfSearchResult();
+    });
+
+    test('Enter a search and have mock 500 Internal Server Error response', async ({ page, request }) => {
+
+        await page.route("**/search?q=**", route => route.fulfill({ status: 500 }));
+
+        await navBar.enterAndPerformSearch("Boys over flowers");
+        await expect(page.getByText("HTTP ERROR 500")).toBeVisible();
+
+    });
+
+    test('Enter a search and have mock 403 Forbidden error response', async ({ page, request }) => {
+
+        await page.route("**/search?q=**", route => route.fulfill({ status: 403 }));
+
+        await navBar.enterAndPerformSearch("Pinocchio");
+        await expect(page.getByText("HTTP ERROR 403")).toBeVisible();
+
+    });
+
+    test('Enter a search and have mock 404 Not Found error response', async ({ page, request }) => {
+        await page.pause();
+        await page.route("**/search?q=**", route => route.fulfill({ status: 404 }));
+
+        await navBar.enterAndPerformSearch("The K2");
+        await expect(page.getByText("HTTP ERROR 404")).toBeVisible();
+
+    });
 
 })

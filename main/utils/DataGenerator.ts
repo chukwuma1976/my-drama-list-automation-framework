@@ -72,7 +72,49 @@ export const updateInfo = {
 }
 
 export const dramaToAdd = {
-    title: "Crash Landing on You (2019)",
+    title: "Crash Landing on You",
     slug: "35729-emergency-lands-of-love",
     url: "https://mydramalist.com/35729-emergency-lands-of-love"
+}
+
+export const statusesUnableToBeRated = ["Plan to watch", "Undecided", "Not Interested"]
+
+export const dramasToNotRate = [
+    {
+        title: "Flex X Cop Season 2",
+        slug: "766325-flex-x-cop-season-2",
+        url: "https://mydramalist.com/766325-flex-x-cop-season-2",
+        status: "Plan to watch"
+    },
+    {
+        title: "Siren's Kiss",
+        slug: "788532-siren",
+        url: "https://mydramalist.com/788532-siren",
+        status: "Undecided"
+    },
+    {
+        title: "Love for You",
+        slug: "760407-ye-gou-gu-tou",
+        url: "https://mydramalist.com/760407-ye-gou-gu-tou",
+        status: "Not Interested"
+    }
+]
+
+export const watchStatus = [
+    "Currently Watching",
+    "Completed",
+    "On Hold",
+    "Dropped",
+    "Plan to Watch",
+    "Undecided",
+    "Not Interested"
+]
+
+export const dramaMyDemon = {
+    title: "My Demon",
+    slug: "746993-my-demon",
+    year: "2023",
+    image: "https://i.mydramalist.com/0w0mZ6_4s.jpg?v=1",
+    rating: "8.3",
+    url: "https://mydramalist.com/746993-my-demon"
 }

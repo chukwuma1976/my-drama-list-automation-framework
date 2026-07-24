@@ -1,0 +1,41 @@
+import { expect, Page } from "@playwright/test";
+import { generateFullUiUrl, username } from "../config";
+
+export class DramaListPage {
+    private dramaListUrl: string
+
+    constructor(private page: Page) {
+        this.page = page;
+        this.dramaListUrl = generateFullUiUrl(`dramalist/${username}`);
+    }
+
+    async navigateToDramaList() {
+        await this.page.goto(this.dramaListUrl);
+    }
+
+    async clickEditDrama(title: string) {
+        const dramaCell = this.page
+            .getByRole("cell", { name: title })
+            .getByRole("button", { name: "edit" });
+        await expect(dramaCell).toBeVisible();
+        await dramaCell.click();
+    }
+
+    async confirmPresenceOfDrama(title: string) {
+        const dramaCell = this.page.getByRole("cell", { name: title });
+        await expect(dramaCell).toBeVisible();
+    }
+
+    async confirmPresenceOfUserRating(title: string, rating: string) {
+        const ratingCell = this.page
+            .getByRole("row", { name: title })
+            .getByRole("cell", { name: rating });
+        await expect(ratingCell).toBeVisible();
+    }
+
+    async clickOnNavigationTabByWatchStatus(status: string) {
+        const tab = this.page.getByRole("link", { name: status });
+        await tab.click();
+    }
+
+}

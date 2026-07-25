@@ -66,6 +66,12 @@ export const searchableActress = {
     slug: "1897-park-eun-bin"
 }
 
+export const searchableActressForAccessiblity = {
+    slug: "490-kim-tae-hee",
+    url: "https://mydramalist.com/people/490-kim-tae-hee",
+    name: "Kim Tae Hee",
+}
+
 export const updateInfo = {
     location: "Somewhere in automation land",
     biography: "I am an automation tester who enjoys the Asian drama experience."
@@ -75,6 +81,12 @@ export const dramaToAdd = {
     title: "Crash Landing on You",
     slug: "35729-emergency-lands-of-love",
     url: "https://mydramalist.com/35729-emergency-lands-of-love"
+}
+
+export const dramaForAccessibility = {
+    slug: "47-iris",
+    url: "https://mydramalist.com/47-iris",
+    title: "Iris",
 }
 
 export const statusesUnableToBeRated = ["Plan to watch", "Undecided", "Not Interested"]
@@ -117,4 +129,11 @@ export const dramaMyDemon = {
     image: "https://i.mydramalist.com/0w0mZ6_4s.jpg?v=1",
     rating: "8.3",
     url: "https://mydramalist.com/746993-my-demon"
+}
+
+export const dramaToBeIntercepted = {
+    slug: "784484-i-give-it-to-you",
+    url: "https://mydramalist.com/784484-i-give-it-to-you",
+    title: "Dream to You",
+    status: "Plan to watch"
 }

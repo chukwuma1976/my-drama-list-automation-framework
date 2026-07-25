@@ -6,6 +6,7 @@ export class RatingsComponent {
     private submitRatingButton: Locator;
     private cancelRatingButton: Locator;
     private deleteButton: Locator;
+    private ratingsModal: Locator;
 
     constructor(private page: Page) {
         this.page = page;
@@ -14,6 +15,7 @@ export class RatingsComponent {
         this.deleteButton = page.getByRole("button", { name: "Delete" });
         this.watchStatusSelect = page.locator("select.select-watch-status");
         this.ratingsSelect = page.locator("select.select-rating");
+        this.ratingsModal = page.locator("div.el-dialog__body div.col-sm-9").filter({ hasText: "Status" });
     }
 
     async selectWatchStatus(option: string) {
@@ -38,5 +40,9 @@ export class RatingsComponent {
 
     async confirmRatingsDropdownDisabled() {
         await expect(this.ratingsSelect).toBeDisabled();
+    }
+
+    getRatingsModal(): Locator {
+        return this.ratingsModal;
     }
 }

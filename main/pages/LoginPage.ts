@@ -1,10 +1,14 @@
-import { Page, expect } from "@playwright/test";
+import { Locator, Page, expect } from "@playwright/test";
 import { BASE_UI_URL } from "../config";
 
 export class LoginPage {
+    private loginModal: Locator;
+    private navBar: Locator;
 
     constructor(private page: Page) {
         this.page = page;
+        this.loginModal = page.locator("div.el-dialog__body");
+        this.navBar = page.locator("div.navbar");
     }
 
     async navigateToApp() {
@@ -14,6 +18,10 @@ export class LoginPage {
 
     async clickLogin() {
         await this.page.getByRole('link', { name: 'Log in' }).click();
+    }
+
+    async clickSignUp() {
+        await this.page.getByRole('link', { name: 'Sign up' }).click();
     }
 
     async loginUser(username: string, password: string) {
@@ -36,5 +44,13 @@ export class LoginPage {
 
     async confirmCredentialsInvalid() {
         await expect(this.page.getByText("Invalid password or username")).toBeVisible();
+    }
+
+    getLoginModal(): Locator {
+        return this.loginModal;
+    }
+
+    getNavBar(): Locator {
+        return this.navBar
     }
 }

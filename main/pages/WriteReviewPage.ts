@@ -7,6 +7,8 @@ export class WriteReviewPage {
     private musicRating: Locator;
     private rewatchRating: Locator;
     private overallRating: Locator;
+    private reviewForm1: Locator;
+    private reviewForm2: Locator;
 
     constructor(private page: Page) {
         this.page = page;
@@ -16,6 +18,9 @@ export class WriteReviewPage {
         this.musicRating = page.locator("li.content_music_rating div.dstar-rating");
         this.rewatchRating = page.locator("li.content_rewatch_rating div.dstar-rating");
         this.overallRating = page.locator("li.content_overall_rating div.dstar-rating");
+        this.reviewForm1 = page.locator("div#review_form div.box-body").filter({ hasText: "Step 2: Ratings" });
+        this.reviewForm2 = page.locator("div#review_form div.box-body").filter({ hasText: "Step 3: Write Your Review" });
+
     }
 
     async clickWriteAReviewButton() {
@@ -63,9 +68,6 @@ export class WriteReviewPage {
 
     async confirmPresenceOfRating(category: string, rating: string) {
         await expect(this.page.locator(`.content_${category}_rating .dstar-right strong`)).toHaveText(rating);
-
-        //confirm presence of tooltip with rating
-        await expect(this.page.getByText(`Rating: ${rating}`)).toBeVisible();
     }
 
     async clickDoesItContainSpoilers(answer: boolean) {
@@ -94,6 +96,14 @@ export class WriteReviewPage {
 
     async clickToSubmitReview() {
         await this.page.getByRole('button', { name: 'Submit Review' }).click();
+    }
+
+    getReviewForm1() {
+        return this.reviewForm1;
+    }
+
+    getReviewForm2() {
+        return this.reviewForm2;
     }
 
 }

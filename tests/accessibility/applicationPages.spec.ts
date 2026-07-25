@@ -1,9 +1,9 @@
-import { expect, Page, test } from '@playwright/test';
+import { Page, test } from '@playwright/test';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds, dismissNotification } from '../../main/utils/popupBlockers';
 import AxeBuilder from '@axe-core/playwright';
-import { BASE_UI_URL, generateFullUiUrl, username } from '../../main/config';
-import { dramaForAccessibility, searchableActress, searchableActressForAccessiblity } from '../../main/utils/DataGenerator';
+import { generateFullUiUrl, username } from '../../main/config';
+import { dramaForAccessibility, searchableActressForAccessiblity } from '../../main/utils/DataGenerator';
 import { DramaDetailsPage } from '../../main/pages/DramaDetailsPage';
 import { WriteReviewPage } from '../../main/pages/WriteReviewPage';
 import { ProfilePage } from '../../main/pages/ProfilePage';

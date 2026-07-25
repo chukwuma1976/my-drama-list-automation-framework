@@ -3,7 +3,7 @@ import { generateFullApiUrl } from "../../main/config"
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaCustomUserListSchema } from "../../main/schemas/dramaCustomUserListSchema";
-import { userListCode } from "../../main/utils/DataGenerator";
+import { userListCode } from "../../main/utils/dataGenerator";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get custom list dramas", () => {

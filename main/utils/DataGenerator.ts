@@ -137,3 +137,12 @@ export const dramaToBeIntercepted = {
     title: "Dream to You",
     status: "Plan to watch"
 }
+
+export const dramaForIntegrationTesting = {
+    slug: "18452-goblin",
+    url: "https://mydramalist.com/18452-goblin",
+    title: "Guardian: The Lonely and Great God (2016)",
+    status: "Completed",
+    rating: "10",
+    updatedStatus: "Plan to watch"
+}

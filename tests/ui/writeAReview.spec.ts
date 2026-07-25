@@ -15,7 +15,6 @@ test.describe("Write a review", () => {
         dramaDetailsPage = new DramaDetailsPage(page);
         writeReviewPage = new WriteReviewPage(page);
 
-        // await page.pause();
         await blockAds(page);
         await page.goto(generateFullUiUrl(dramaMyDemon.slug));
 
@@ -25,7 +24,7 @@ test.describe("Write a review", () => {
     })
 
     test("Write a review", async ({ page }) => {
-        await page.pause();
+
         await writeReviewPage.enterStoryRating("8.0");
         await writeReviewPage.enterActingRating("9.5");
         await writeReviewPage.enterMusicRating("8.0");

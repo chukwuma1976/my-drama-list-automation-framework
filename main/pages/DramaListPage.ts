@@ -45,14 +45,21 @@ export class DramaListPage {
     }
 
     async verifyPresenceOfAllDramasInList(dramaList: any[]) {
-        for (const drama of dramaList) {
+        const dramasByStatus = this.organizeDramasByStatus(dramaList);
 
-            const { title, status, rating } = drama;
+        for (const status of Object.keys(dramasByStatus)) {
 
+            const dramasForStatus = dramasByStatus[status] as any[];
             await this.clickOnNavigationTabByWatchStatus(this.convertToTab(status));
-            await this.confirmPresenceOfDrama(title);
-            if (rating !== "") {
-                await this.confirmPresenceOfUserRating(title, rating);
+
+            for (const drama of dramasForStatus) {
+
+                const { title, rating } = drama;
+                await this.confirmPresenceOfDrama(title);
+                if (rating !== "") {
+                    await this.confirmPresenceOfUserRating(title, rating);
+                }
+
             }
         }
     }
@@ -63,6 +70,19 @@ export class DramaListPage {
             case "On-hold": return "On Hold"
             default: return status
         }
+    }
+
+    organizeDramasByStatus(dramas: any): Record<string, any[]> {
+        const organizedDramas: Record<string, any[]> = {};
+        for (const drama of dramas) {
+            if (!organizedDramas[drama.status]) {
+                organizedDramas[drama.status] = [drama];
+            } else {
+                organizedDramas[drama.status].push(drama);
+            }
+        }
+
+        return organizedDramas;
     }
 
 }

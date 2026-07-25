@@ -84,7 +84,7 @@ test.describe("Search for a drama and validate results", () => {
     });
 
     test('Enter a search and have mock 404 Not Found error response', async ({ page, request }) => {
-        await page.pause();
+
         await page.route("**/search?q=**", route => route.fulfill({ status: 404 }));
 
         await navBar.enterAndPerformSearch("The K2");

@@ -122,6 +122,17 @@ export const watchStatus = [
     "Not Interested"
 ]
 
+export const buttonStatuses = [
+    "Add to List",
+    "Currently watching",
+    "Completed",
+    "On-hold",
+    "Dropped",
+    "Plan to watch",
+    "Undecided",
+    "Not Interested"
+];
+
 export const dramaMyDemon = {
     title: "My Demon",
     slug: "746993-my-demon",
@@ -141,8 +152,10 @@ export const dramaToBeIntercepted = {
 export const dramaForIntegrationTesting = {
     slug: "18452-goblin",
     url: "https://mydramalist.com/18452-goblin",
-    title: "Guardian: The Lonely and Great God (2016)",
+    title: "Guardian: The Lonely and Great God",
     status: "Completed",
     rating: "10",
-    updatedStatus: "Plan to watch"
+    updateDropdownStatus: "Plan to watch",
+    updatedStatus: "Plan to Watch",
+    updatedRating: "8.5"
 }

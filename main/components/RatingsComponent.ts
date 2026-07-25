@@ -19,14 +19,17 @@ export class RatingsComponent {
     }
 
     async selectWatchStatus(option: string) {
+        await expect(this.watchStatusSelect).toBeVisible();
         await this.watchStatusSelect.selectOption(option);
     }
 
     async selectRating(option: string) {
+        await expect(this.ratingsSelect).toBeVisible();
         await this.ratingsSelect.selectOption(option);
     }
 
     async submitRating() {
+        await expect(this.submitRatingButton).toBeVisible();
         await this.submitRatingButton.click();
     }
 

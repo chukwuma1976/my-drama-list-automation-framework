@@ -1,12 +1,14 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { buttonStatuses } from "../utils/dataGenerator";
 
 export class DramaDetailsPage {
     private addToListButton: Locator;
 
     constructor(private page: Page) {
         this.page = page;
-        this.addToListButton = page.getByRole("button", { name: "Add to List" })
-            .or(page.locator("div.film-cover button.btn-manage-list"));
+        this.addToListButton = page.getByRole("button", {
+            name: new RegExp(`^(?:${buttonStatuses.join("|")})$`)
+        });
     }
 
     async validateThatUrlContains(slug: string) {
@@ -61,6 +63,7 @@ export class DramaDetailsPage {
     }
 
     async clickAddToList() {
+        await expect(this.addToListButton).toBeVisible();
         await this.addToListButton.click();
     }
 

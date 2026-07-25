@@ -3,6 +3,7 @@ import { generateFullApiUrl } from "../../main/config"
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { seasonalDramasSchema } from "../../main/schemas/seasonalDramasSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get seasonal dramas", () => {
 
@@ -19,6 +20,7 @@ test.describe("Get seasonal dramas", () => {
             expect(result.year).toBe(2025);
             expect(result.quarter).toBe(season)
             expect(validate(result)).toBeTruthy();
+            validateHeaders(response.headers());
         })
 
     })

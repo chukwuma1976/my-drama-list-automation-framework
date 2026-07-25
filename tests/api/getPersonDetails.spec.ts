@@ -4,6 +4,7 @@ import { actors } from "../../main/utils/DataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaPersonSchema } from "../../main/schemas/dramaPersonSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get person details", () => {
 
@@ -18,6 +19,7 @@ test.describe("Get person details", () => {
             expect(response.status()).toBe(200);
             const result = await response.json();
             expect(validate(result)).toBeTruthy();
+            validateHeaders(response.headers());
         })
 
     })

@@ -3,6 +3,7 @@ import { generateFullApiUrl } from "../../main/config"
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramasCurrentlyAiringSchema } from "../../main/schemas/dramasCurrentlyAiringSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get currently airing dramas", () => {
 
@@ -15,6 +16,7 @@ test.describe("Get currently airing dramas", () => {
         expect(response.status()).toBe(200);
         const result = await response.json();
         expect(validate(result)).toBeTruthy();
+        validateHeaders(response.headers());
     })
 
     test("get currently airing dramas with mispelled URL", async ({ request }) => {

@@ -1,5 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { daysOfTheWeek } from "../utils/DataGenerator";
+import { daysOfTheWeek } from "../utils/dataGenerator";
 import { generateFullUiUrl } from "../config";
 
 export class CalendarPage {

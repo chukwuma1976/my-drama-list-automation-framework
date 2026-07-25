@@ -3,7 +3,7 @@ import { blockAds, dismissNotification } from "../../main/utils/popupBlockers";
 import { DramaDetailsPage } from "../../main/pages/DramaDetailsPage";
 import { NavBarComponent } from "../../main/components/NavBarComponent";
 import { generateFullUiUrl, username } from "../../main/config";
-import { dramaToAdd } from "../../main/utils/DataGenerator";
+import { dramaToAdd } from "../../main/utils/dataGenerator";
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
 

@@ -45,7 +45,12 @@ export default defineConfig({
 
     {
       name: 'chromium-auth',
-      testIgnore: /tests\/auth\/.*\.spec\.ts/,
+      testIgnore: [
+        /tests\/auth\/.*\.spec\.ts/,
+        /tests\/api\/.*\.spec\.ts/,
+        /authVisualRegression/,
+        /authAccessibility/
+      ],
       use: {
         ...devices['Desktop Chrome'],
         storageState: 'playwright/.auth/user.json'
@@ -55,7 +60,12 @@ export default defineConfig({
 
     {
       name: 'chromium-clean',
-      testMatch: /tests\/auth\/.*\.spec\.ts/,
+      testMatch: [
+        /tests\/auth\/.*\.spec\.ts/,
+        /tests\/api\/.*\.spec\.ts/,
+        /authVisualRegression/,
+        /authAccessibility/
+      ],
       use: {
         ...devices['Desktop Chrome'],
         // no storageState

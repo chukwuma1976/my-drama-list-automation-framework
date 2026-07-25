@@ -1,12 +1,12 @@
-import { Page, test } from '@playwright/test';
+import { test } from '@playwright/test';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds, dismissNotification } from '../../main/utils/popupBlockers';
-import AxeBuilder from '@axe-core/playwright';
 import { generateFullUiUrl, username } from '../../main/config';
-import { dramaForAccessibility, searchableActressForAccessiblity } from '../../main/utils/DataGenerator';
+import { dramaForAccessibility, searchableActressForAccessiblity } from '../../main/utils/dataGenerator';
 import { DramaDetailsPage } from '../../main/pages/DramaDetailsPage';
 import { WriteReviewPage } from '../../main/pages/WriteReviewPage';
 import { ProfilePage } from '../../main/pages/ProfilePage';
+import { getAccessibilityScanViolations, logAccessibilityScanResults } from '../../main/utils/accessibilityFunctions';
 
 test.describe("Accessibility testing on different pages of the application", () => {
 
@@ -96,16 +96,5 @@ test.describe("Accessibility testing on different pages of the application", () 
         logAccessibilityScanResults("User Profile Page", descriptions);
 
     });
-
-    function logAccessibilityScanResults(typeOfPage: string, descriptions: string[]) {
-        console.log(`Accessibility scan recommendations for ${typeOfPage}\n`);
-        descriptions.forEach((description, index) => console.log(`\t ${index + 1}) ${description}`));
-    }
-
-    async function getAccessibilityScanViolations(page: Page): Promise<string[]> {
-        const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-        const descriptions = accessibilityScanResults.violations.map(violation => violation.description);
-        return descriptions;
-    }
 
 })

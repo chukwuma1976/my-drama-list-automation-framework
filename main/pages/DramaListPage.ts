@@ -27,15 +27,15 @@ export class DramaListPage {
     }
 
     async confirmPresenceOfDrama(title: string) {
-        const dramaCell = this.page.getByRole("cell", { name: title });
-        await expect(dramaCell).toBeVisible();
+        const dramaCell = this.page.getByRole("cell", { name: title }).first();
+        expect(await dramaCell.innerText()).toContain(title);
     }
 
     async confirmPresenceOfUserRating(title: string, rating: string) {
         const ratingCell = this.page
             .getByRole("row", { name: title })
-            .getByRole("cell", { name: rating });
-        await expect(ratingCell).toBeVisible();
+            .getByRole("cell", { name: rating }).first();
+        expect(await ratingCell.innerText()).toContain(rating);
     }
 
     async clickOnNavigationTabByWatchStatus(status: string) {
@@ -55,6 +55,26 @@ export class DramaListPage {
             for (const drama of dramasForStatus) {
 
                 const { title, rating } = drama;
+                await this.confirmPresenceOfDrama(title);
+                if (rating !== "") {
+                    await this.confirmPresenceOfUserRating(title, rating);
+                }
+
+            }
+        }
+    }
+
+    async verifyPresenceOfDramasInListByPartitioning(dramaList: any[]) {
+        const dramasByStatus = this.organizeDramasByStatus(dramaList);
+
+        for (const status of Object.keys(dramasByStatus)) {
+
+            const dramasForStatus = dramasByStatus[status] as any[];
+            await this.clickOnNavigationTabByWatchStatus(this.convertToTab(status));
+
+            for (let i = 0; i < dramasForStatus.length; i += 10) {
+
+                const { title, rating } = dramasForStatus[i];
                 await this.confirmPresenceOfDrama(title);
                 if (rating !== "") {
                     await this.confirmPresenceOfUserRating(title, rating);

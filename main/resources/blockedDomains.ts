@@ -1,0 +1,23 @@
+export const blockedDomains = [
+    "googlesyndication",
+    "doubleclick",
+    "googleads",
+    "fundingchoicesmessages",
+    "rubiconproject",
+    "openx",
+    "pubmatic",
+    "gumgum",
+    "criteo",
+    "smartadserver",
+    "adsrvr",
+    "stackadapt",
+    "33across",
+    "tynt",
+    "sonobi",
+    "media.net",
+    "lijit",
+    "taboola",
+    "seedtag",
+    "bidswitch",
+    "id5-sync"
+];

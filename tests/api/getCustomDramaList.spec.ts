@@ -3,7 +3,8 @@ import { generateFullApiUrl } from "../../main/config"
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaCustomListSchema } from "../../main/schemas/dramaCustomListSchema";
-import { dramaListCodes } from "../../main/utils/DataGenerator";
+import { dramaListCodes } from "../../main/utils/dataGenerator";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get custom list dramas", () => {
 
@@ -19,6 +20,7 @@ test.describe("Get custom list dramas", () => {
             const result = await response.json();
             expect(result.url).toContain(list);
             expect(validate(result)).toBeTruthy();
+            validateHeaders(response.headers());
         })
 
     })

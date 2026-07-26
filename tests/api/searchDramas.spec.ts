@@ -1,9 +1,10 @@
 import test, { expect } from "@playwright/test";
 import { generateFullApiUrl } from "../../main/config"
-import { dramaList } from "../../main/utils/DataGenerator";
+import { dramaList } from "../../main/utils/dataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaListSchema } from "../../main/schemas/dramaListSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Search for dramas", () => {
     const ajv = new Ajv();
@@ -17,6 +18,7 @@ test.describe("Search for dramas", () => {
             const result = await response.json();
             expect(Array.isArray(result.results)).toBeTruthy();
             expect(validate(result)).toBeTruthy();
+            validateHeaders(response.headers());
         })
     })
 

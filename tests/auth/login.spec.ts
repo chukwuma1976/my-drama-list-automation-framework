@@ -1,12 +1,14 @@
 import { test } from '@playwright/test';
 import { password, username } from '../../main/config';
 import { LoginPage } from '../../main/pages/LoginPage';
-import { missingCredentials, invalidCredentials } from '../../main/utils/DataGenerator';
+import { missingCredentials, invalidCredentials } from '../../main/utils/dataGenerator';
+import { blockAds } from '../../main/utils/popupBlockers';
 
-test.describe("Navigate to My Drama List", () => {
+test.describe("Test login scenarios", () => {
   let loginPage: LoginPage;
 
   test.beforeEach(async ({ page }) => {
+    await blockAds(page);
     loginPage = new LoginPage(page);
   })
 
@@ -18,7 +20,7 @@ test.describe("Navigate to My Drama List", () => {
     await loginPage.confirmUserLoggedIn();
   });
 
-  missingCredentials.forEach(async (credential) => {
+  missingCredentials.forEach((credential) => {
     test(`Testing login scenario: ${credential.scenario}`, async ({ page }) => {
       await loginPage.navigateToApp();
       await loginPage.clickLogin();

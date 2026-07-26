@@ -1,9 +1,10 @@
 import test, { expect } from "@playwright/test";
 import { generateFullApiUrl } from "../../main/config"
-import { dramaSlug } from "../../main/utils/DataGenerator";
+import { dramaSlug } from "../../main/utils/dataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaReviewsSchema } from "../../main/schemas/dramaReviewsSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get reviews", () => {
 
@@ -16,6 +17,7 @@ test.describe("Get reviews", () => {
         expect(response.status()).toBe(200);
         const result = await response.json();
         expect(validate(result)).toBeTruthy();
+        validateHeaders(response.headers());
     })
 
     test("get reviews with an invalid parameter", async ({ request }) => {

@@ -1,14 +1,21 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { daysOfTheWeek } from "../utils/DataGenerator";
+import { daysOfTheWeek } from "../utils/dataGenerator";
+import { generateFullUiUrl } from "../config";
 
 export class CalendarPage {
-    calendarResults: Locator;
-    filterPanel: Locator;
+    private calendarResults: Locator;
+    private filterPanel: Locator;
+    private URL: string;
 
     constructor(private page: Page) {
         this.page = page;
         this.calendarResults = page.locator("#episode-calendar-results");
         this.filterPanel = this.page.locator("div.calendar-filter-panel");
+        this.URL = generateFullUiUrl("episode-calendar");
+    }
+
+    async gotoCalendarPage() {
+        await this.page.goto(this.URL);
     }
 
     async checkEachDayForAiringDrama(airingDramas: any) {
@@ -27,10 +34,6 @@ export class CalendarPage {
         const dayDramaText = await dayDramas.textContent();
         expect.soft(dramaTitles.some((title: string) => dayDramaText?.includes(title))).toBeTruthy();
 
-    }
-
-    async blockAds() {
-        await this.page.route("**/*ad**", async route => route.abort());
     }
 
     async clickAllToggleButton() {
@@ -64,6 +67,21 @@ export class CalendarPage {
 
     async changeFormat() {
         await this.page.locator("div.display-format").click();
+    }
+
+    async clickQuarterTab(quarter: number, twoDigitYear: string) {
+        await this.page.getByText(`Q${quarter} '${twoDigitYear}`).click();
+    }
+
+    async confirmQuarterContainsMoreDramasThan(airingDramas: any) {
+        await expect(this.page.locator("#footer")).toBeVisible();
+        const quarterDramas = this.page.locator('div.el-card');
+        const quarterDramaCount = (await quarterDramas.all()).length;
+        const airingDramaCount = daysOfTheWeek
+            .map((day: string) => airingDramas[day].length)
+            .reduce((prev: number, current: number) => prev + current);
+        expect(quarterDramaCount).toBeGreaterThan(airingDramaCount);
+
     }
 
 }

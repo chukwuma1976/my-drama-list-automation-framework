@@ -39,9 +39,43 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "setup",
+      testMatch: /auth\.setup\.ts/
     },
+
+    {
+      name: 'chromium-auth',
+      testIgnore: [
+        /tests\/auth\/.*\.spec\.ts/,
+        /tests\/api\/.*\.spec\.ts/,
+        /authVisualRegression/,
+        /authAccessibility/
+      ],
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: 'playwright/.auth/user.json'
+      },
+      dependencies: ['setup']
+    },
+
+    {
+      name: 'chromium-clean',
+      testMatch: [
+        /tests\/auth\/.*\.spec\.ts/,
+        /tests\/api\/.*\.spec\.ts/,
+        /authVisualRegression/,
+        /authAccessibility/
+      ],
+      use: {
+        ...devices['Desktop Chrome'],
+        // no storageState
+      }
+    }
+
+    // {
+    //   name: 'chromium',
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
 
     // {
     //   name: 'firefox',

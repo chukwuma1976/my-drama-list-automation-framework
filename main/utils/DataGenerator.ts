@@ -55,3 +55,114 @@ export const daysOfTheWeek = [
     'Saturday',
     'Sunday'
 ]
+
+export const searchableDrama = {
+    title: "The WONDERfools",
+    slug: "768853-the-b-team"
+}
+
+export const searchableActress = {
+    name: "Park Eun Bin",
+    slug: "1897-park-eun-bin"
+}
+
+export const searchableActressForAccessiblity = {
+    slug: "490-kim-tae-hee",
+    url: "https://mydramalist.com/people/490-kim-tae-hee",
+    name: "Kim Tae Hee",
+}
+
+export const updateInfo = {
+    location: "Somewhere in automation land",
+    biography: "I am an automation tester who enjoys the Asian drama experience."
+}
+
+export const dramaToAdd = {
+    title: "Crash Landing on You",
+    slug: "35729-emergency-lands-of-love",
+    url: "https://mydramalist.com/35729-emergency-lands-of-love"
+}
+
+export const dramaForAccessibility = {
+    slug: "47-iris",
+    url: "https://mydramalist.com/47-iris",
+    title: "Iris",
+}
+
+export const statusesUnableToBeRated = ["Plan to watch", "Undecided", "Not Interested"]
+
+export const dramasToNotRate = [
+    {
+        title: "Flex X Cop Season 2",
+        slug: "766325-flex-x-cop-season-2",
+        url: "https://mydramalist.com/766325-flex-x-cop-season-2",
+        status: "Plan to watch"
+    },
+    {
+        title: "Siren's Kiss",
+        slug: "788532-siren",
+        url: "https://mydramalist.com/788532-siren",
+        status: "Undecided"
+    },
+    {
+        title: "Love for You",
+        slug: "760407-ye-gou-gu-tou",
+        url: "https://mydramalist.com/760407-ye-gou-gu-tou",
+        status: "Not Interested"
+    }
+]
+
+export const watchStatus = [
+    "Currently Watching",
+    "Completed",
+    "On Hold",
+    "Dropped",
+    "Plan to Watch",
+    "Undecided",
+    "Not Interested"
+]
+
+export const buttonStatuses = [
+    "Add to List",
+    "Currently watching",
+    "Completed",
+    "On-hold",
+    "Dropped",
+    "Plan to watch",
+    "Undecided",
+    "Not Interested"
+];
+
+export const dramaMyDemon = {
+    title: "My Demon",
+    slug: "746993-my-demon",
+    year: "2023",
+    image: "https://i.mydramalist.com/0w0mZ6_4s.jpg?v=1",
+    rating: "8.3",
+    url: "https://mydramalist.com/746993-my-demon"
+}
+
+export const dramaToBeIntercepted = {
+    slug: "784484-i-give-it-to-you",
+    url: "https://mydramalist.com/784484-i-give-it-to-you",
+    title: "Dream to You",
+    status: "Plan to watch"
+}
+
+export const dramaForIntegrationTesting = {
+    slug: "18452-goblin",
+    url: "https://mydramalist.com/18452-goblin",
+    title: "Guardian: The Lonely and Great God",
+    status: "Completed",
+    rating: "10",
+    updateDropdownStatus: "Plan to watch",
+    updatedStatus: "Plan to Watch",
+    updatedRating: "8.5"
+}
+
+
+export const dramaVeilOfShadows = {
+    slug: "761731-the-resurrection-painted-skin",
+    url: "https://mydramalist.com/761731-the-resurrection-painted-skin",
+    title: "Veil of Shadows (2026)",
+}

@@ -1,8 +1,10 @@
 import { APIRequestContext, expect, test } from '@playwright/test';
-import { generateFullApiUrl, password, username } from '../../main/config';
+import { generateFullApiUrl } from '../../main/config';
 import { LoginPage } from '../../main/pages/LoginPage';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { CalendarPage } from '../../main/pages/CalendarPage';
+import { currentQuarter, twoDigitYear } from '../../main/utils/dateTimeGenerator';
+import { blockAds } from '../../main/utils/popupBlockers';
 
 test.describe("Check calendar page for currently airing dramas", () => {
 
@@ -15,22 +17,17 @@ test.describe("Check calendar page for currently airing dramas", () => {
 
         navBar = new NavBarComponent(page);
         calendarPage = new CalendarPage(page);
-        await navBar.gotoHomePage();
-        await navBar.clickCalendar();
+        await blockAds(page);
+        await calendarPage.gotoCalendarPage();
+        await new LoginPage(page).dismissNotification();
+        await navBar.confirmNavigationToCalendarPage();
     })
 
     test('Check a drama that is airing for each day', async ({ page }) => {
-        await calendarPage.blockAds();
-        await navBar.confirmNavigationToCalendarPage();
         await calendarPage.checkEachDayForAiringDrama(airingDramas);
     });
 
-    test('Test toggle buttons and filter functions after logging in', async ({ page }) => {
-        const loginPage = new LoginPage(page);
-        await loginPage.clickLogin();
-        await loginPage.loginUser(username, password);
-
-        await calendarPage.blockAds();
+    test('Test toggle buttons and filter functions', async ({ page }) => {
         await calendarPage.clickMyListToggleButton();
         const myListCount = await calendarPage.getCalendarCardCount();
 
@@ -46,6 +43,10 @@ test.describe("Check calendar page for currently airing dramas", () => {
         expect(filterCount).not.toBe(totalCount);
     });
 
+    test('Check for seasonal dramas', async ({ page }) => {
+        await calendarPage.clickQuarterTab(currentQuarter, twoDigitYear);
+        await calendarPage.confirmQuarterContainsMoreDramasThan(airingDramas);
+    });
 
     async function getCurrentlyAiringDramas(request: APIRequestContext): Promise<any> {
         const response = await request.get(generateFullApiUrl("/api/calendar"));

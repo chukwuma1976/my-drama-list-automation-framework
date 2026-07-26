@@ -1,9 +1,10 @@
 import test, { expect } from "@playwright/test";
 import { generateFullApiUrl } from "../../main/config"
-import { dramaSlug } from "../../main/utils/DataGenerator";
+import { dramaSlug } from "../../main/utils/dataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaDetailsSchema } from "../../main/schemas/dramaDetailsSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get drama details", () => {
 
@@ -17,6 +18,7 @@ test.describe("Get drama details", () => {
         const result = await response.json();
         expect(result.slug).toBe(dramaSlug);
         expect(validate(result)).toBeTruthy();
+        validateHeaders(response.headers());
     })
 
     test("get drama details with missing parameter", async ({ request }) => {

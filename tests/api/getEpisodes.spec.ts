@@ -1,9 +1,10 @@
 import test, { expect } from "@playwright/test";
 import { generateFullApiUrl } from "../../main/config"
-import { dramaSlug } from "../../main/utils/DataGenerator";
+import { dramaSlug } from "../../main/utils/dataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaEpisodesSchema } from "../../main/schemas/dramaEpisodesSchema";
+import { validateHeaders } from "../../main/utils/validateHeaders";
 
 test.describe("Get drama episodes", () => {
 
@@ -16,6 +17,7 @@ test.describe("Get drama episodes", () => {
         expect(response.status()).toBe(200);
         const result = await response.json();
         expect(validate(result)).toBeTruthy();
+        validateHeaders(response.headers());
     })
 
     test("get episodes with a space as parameter", async ({ request }) => {

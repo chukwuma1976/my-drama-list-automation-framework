@@ -6,9 +6,12 @@ import { generateFullApiUrl, generateFullUiUrl, username } from "../../main/conf
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
 import { dramaForIntegrationTesting } from "../../main/utils/dataGenerator";
+import { SearchResultsPage } from "../../main/pages/SearchResultsPage";
 
 test.describe("Integration test to add, rate, update rating, and delete drama", () => {
 
+    let searchResultsPage: SearchResultsPage;
+    let dramaDetailsPage: DramaDetailsPage;
     let dramaPage: DramaDetailsPage;
     let navBar: NavBarComponent;
     let dramaList: DramaListPage;
@@ -17,18 +20,41 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
 
     test.beforeEach(async ({ page }) => {
         await blockAds(page);
+        searchResultsPage = new SearchResultsPage(page);
+        dramaDetailsPage = new DramaDetailsPage(page);
         dramaPage = new DramaDetailsPage(page);
         navBar = new NavBarComponent(page);
         dramaList = new DramaListPage(page);
         ratingsModal = new RatingsComponent(page);
 
-        await page.goto(generateFullUiUrl(slug));
-        expect(page.url()).toBe(url);
-        await dismissNotification(page);
-
+        await navBar.gotoHomePage();
     })
 
     test("Integration testing", async ({ page, request }) => {
+
+        //perform API test first to get test data
+        const response = await request.get(generateFullApiUrl(`/api/id/${slug}`));
+        expect(response.status()).toBe(200);
+        const result = await response.json();
+        expect(result.slug).toBe(slug);
+
+        await navBar.enterAndPerformSearch(title);
+        await navBar.confirmNavigationtoSearchPage();
+
+        await searchResultsPage.selectSearchResult(title);
+        expect(page.url()).toBe(url);
+        await dismissNotification(page);
+
+        //validate sections of the drama details page
+        await dramaDetailsPage.validateThatUrlContains(slug);
+        await dramaDetailsPage.validateTitle(result.title);
+        await dramaDetailsPage.validateImageUrl(result.image);
+        await dramaDetailsPage.validateSynopsis(result.synopsis);
+        await dramaDetailsPage.validateDetails(result);
+        await dramaDetailsPage.validateStats(result);
+        await dramaDetailsPage
+            .validateMiscellaneous(result.also_known_as, result.genres, result.tags, result.native_title);
+        await dramaDetailsPage.validateRating(result.rating);
 
         // Add rating, mark as completed, submit in UI
         await dramaPage.clickAddToList();
@@ -41,12 +67,13 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
         //Confirm addition to user drama list through API
         await pollAndWaitForDrama(request, { title, slug, url, status, rating });
 
-        //Edit status in UI
+        //Edit status and rating in UI
         await dramaPage.clickAddToList();
         await ratingsModal.selectRating(updatedRating);
         await ratingsModal.selectWatchStatus(updateDropdownStatus);
         await ratingsModal.submitRating();
 
+        //Confirm status is edited through API
         await pollAndWaitForDrama(request, { status: updatedStatus })
     });
 
@@ -54,6 +81,7 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
         await dramaPage.clickAddToList();
         await ratingsModal.deleteFromList();
 
+        //Ensure drama disappears from user list
         await pollAndWaitForDramaToDisappear(request)
     })
 

@@ -1,4 +1,4 @@
-import test from "@playwright/test"
+import test, { expect } from "@playwright/test"
 import { NavBarComponent } from "../../main/components/NavBarComponent"
 import { blockAds } from "../../main/utils/popupBlockers";
 
@@ -29,5 +29,22 @@ test.describe("check contents and functionality of navigation bar", () => {
     test("confirm search with input works", async ({ page }) => {
         await navBar.enterAndPerformSearch("Moving");
         await navBar.confirmNavigationtoSearchPage();
+    })
+
+    test("confirm darkmode button works", async ({ page }) => {
+        await navBar.clickDarkModeButton();
+        const darkModeStart = await navBar.getDarkModeIndicator();
+
+        await page.reload({ waitUntil: "domcontentloaded" });
+
+        const darkModeNext = await navBar.getDarkModeIndicator();
+        expect(darkModeStart).toBe("ON");
+        expect(darkModeStart).toBe(darkModeNext);
+
+        await navBar.clickDarkModeButton();
+        const darkModeFinal = await navBar.getDarkModeIndicator();
+
+        expect(darkModeFinal).toBe("OFF");
+        expect(darkModeNext).not.toBe(darkModeFinal);
     })
 })

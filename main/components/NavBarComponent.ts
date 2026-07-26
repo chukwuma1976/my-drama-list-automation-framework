@@ -12,6 +12,8 @@ export class NavBarComponent {
     private languageButton: Locator;
     private userAvatar: Locator;
     private homeButton: Locator;
+    private darkModeButton: Locator;
+    private darkModeIndicator: Locator;
 
     constructor(private page: Page) {
         this.page = page;
@@ -24,6 +26,8 @@ export class NavBarComponent {
         this.searchInput = this.navBarContainer.getByRole('textbox', { name: 'Find Asian Dramas, Movies,' });
         this.userAvatar = this.page.locator("img.header-user-avatar");
         this.homeButton = this.page.getByRole('link', { name: 'MyDramaList v6.7' });
+        this.darkModeButton = this.page.getByRole("link", { name: "Dark Mode" });
+        this.darkModeIndicator = this.darkModeButton.getByRole("button");
     }
 
     async gotoHomePage() {
@@ -95,6 +99,17 @@ export class NavBarComponent {
 
     async clickWatchList() {
         await this.page.getByRole("link", { name: "My Watchlist" }).click();
+    }
+
+    async clickDarkModeButton() {
+        await this.clickUserAvatar();
+        await expect(this.darkModeButton).toBeVisible();
+        await this.darkModeButton.click();
+    }
+
+    async getDarkModeIndicator(): Promise<string | null> {
+        await expect(this.darkModeIndicator).toBeVisible();
+        return await this.darkModeIndicator.textContent();
     }
 
 }

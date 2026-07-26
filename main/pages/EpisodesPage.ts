@@ -22,6 +22,7 @@ export class EpisodesPage {
         await expect(this.page.getByText(episode.description)).toBeVisible();
         await expect(this.page.getByText(episode.air_date)).toBeVisible();
         await expect(this.page.getByText(`Season: ${episode.season}`)).toBeVisible();
+        await expect(this.page.locator(`img[src="${episode.image}"]`)).toBeVisible();
     }
 
     async navigateToNextEpisode() {

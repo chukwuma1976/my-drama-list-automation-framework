@@ -5,7 +5,7 @@ import { NavBarComponent } from "../../main/components/NavBarComponent";
 import { generateFullApiUrl, generateFullUiUrl, username } from "../../main/config";
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
-import { dramaForIntegrationTesting } from "../../main/utils/DataGenerator";
+import { dramaForIntegrationTesting } from "../../main/utils/dataGenerator";
 
 test.describe("Integration test to add, rate, update rating, and delete drama", () => {
 
@@ -43,15 +43,18 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
 
         //Edit status in UI
         await dramaPage.clickAddToList();
+        await ratingsModal.selectRating(updatedRating);
         await ratingsModal.selectWatchStatus(updateDropdownStatus);
         await ratingsModal.submitRating();
 
         await pollAndWaitForDrama(request, { status: updatedStatus })
     });
 
-    test.afterEach(async ({ page }) => {
+    test.afterEach(async ({ page, request }) => {
         await dramaPage.clickAddToList();
         await ratingsModal.deleteFromList();
+
+        await pollAndWaitForDramaToDisappear(request)
     })
 
     async function pollAndWaitForDrama(request: APIRequestContext, drama: any) {
@@ -64,5 +67,18 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
             intervals: [1000, 2000, 5000],
             timeout: 120_000
         }).toMatchObject(drama);
+    }
+
+    async function pollAndWaitForDramaToDisappear(request: APIRequestContext) {
+        await expect.poll(async () => {
+            const response = await request.get(generateFullApiUrl(`/api/dramalist/${username}`));
+            const result = await response.json();
+            return result.dramas.filter((drama: any) => drama.slug === slug).length;
+        }, {
+            message: "Drama not found",
+            intervals: [1000, 2000, 5000, 10000],
+            timeout: 120_000
+        }).toBe(0);
+
     }
 })

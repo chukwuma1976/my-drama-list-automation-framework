@@ -1,5 +1,6 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { buttonStatuses } from "../utils/dataGenerator";
+import { generateFullUiUrl } from "../config";
 
 export class DramaDetailsPage {
     private addToListButton: Locator;
@@ -9,6 +10,22 @@ export class DramaDetailsPage {
         this.addToListButton = page.getByRole("button", {
             name: new RegExp(`^(?:${buttonStatuses.join("|")})$`)
         });
+    }
+
+    async clickEpisodesLink() {
+        await this.goToLink("Episodes");
+    }
+
+    async clickCastLink() {
+        await this.goToLink("Cast");
+    }
+
+    async clickRecsLink() {
+        await this.goToLink("Recs");
+    }
+
+    async goToLink(link: string) {
+        await this.page.getByRole("link", { name: link, exact: true }).click();
     }
 
     async validateThatUrlContains(slug: string) {

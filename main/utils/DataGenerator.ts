@@ -159,3 +159,10 @@ export const dramaForIntegrationTesting = {
     updatedStatus: "Plan to Watch",
     updatedRating: "8.5"
 }
+
+
+export const dramaVeilOfShadows = {
+    slug: "761731-the-resurrection-painted-skin",
+    url: "https://mydramalist.com/761731-the-resurrection-painted-skin",
+    title: "Veil of Shadows (2026)",
+}

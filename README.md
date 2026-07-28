@@ -258,4 +258,12 @@ This project serves as a portfolio-quality automation framework designed to demo
 
 ---
 
+Current Framework Metrics
+
+• 121 Automated Tests
+• 118 Passing
+• 3 Known Flaky Tests (timing-related)
+• 0 Failing Tests
+• ~12 minute full suite execution
+
 #SDET #QA #TestAutomation #Playwright #TypeScript #APItesting #IntegrationTesting #AccessibilityTesting #VisualRegression #PerformanceTesting #k6 #CI_CD #AutomationFramework #SoftwareTesting #QualityEngineering

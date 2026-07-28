@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
-import { generateFullApiUrl } from "../../main/config"
-import { dramaList } from "../../main/utils/dataGenerator";
+import { BASE_API_URL, generateFullApiUrl } from "../../main/config"
+import { dramaList, performanceTestingEndpoints, searchValidationKeySet, searchValidationStrings, searchWithSpecialCharacters, sqlInjection } from "../../main/utils/dataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaListSchema } from "../../main/schemas/dramaListSchema";
@@ -16,6 +16,7 @@ test.describe("Search for dramas", () => {
             const response = await request.get(generateFullApiUrl(`/api/search/q/${drama}`));
             expect(response.status()).toBe(200);
             const result = await response.json();
+
             expect(Array.isArray(result.results)).toBeTruthy();
             expect(validate(result)).toBeTruthy();
             validateHeaders(response.headers());
@@ -25,8 +26,60 @@ test.describe("Search for dramas", () => {
     test("Search for drama with missing drama name", async ({ request }) => {
         const response = await request.get(generateFullApiUrl("/api/search/q/"));
         expect(response.status()).toBe(404);
+
         const result = await response.json();
         expect(result.detail).toBe("Not Found");
+    })
+
+    // Search validation testing different scenarios
+    searchValidationKeySet.forEach((scenario: string) => {
+        test(`Search for a drama by name of ${scenario.replace("_", " ")}`, async ({ request }) => {
+            const response = await request.get(generateFullApiUrl(`/api/search/q/${searchValidationStrings[scenario]}`));
+            expect(response.status()).toBe(200);
+
+            const result = await response.json();
+            expect(Array.isArray(result.results)).toBeTruthy();
+            expect(validate(result)).toBeTruthy();
+            validateHeaders(response.headers());
+        })
+    })
+
+    test("Search for drama with special characters in search", async ({ request }) => {
+        const response = await request.get(generateFullApiUrl(`/api/search/q/${searchWithSpecialCharacters}`));
+        expect(response.status()).toBe(400);
+        /* 
+        Note: this should be 200, in production this is a bug that need fixing
+        Please see sample report in docs folder
+
+        expect(response.status()).toBe(200); //==> failure
+        const result = await response.json();
+        expect(Array.isArray(result.results)).toBeTruthy();
+        expect(validate(result)).toBeTruthy();
+        validateHeaders(response.headers());
+        */
+    })
+
+    test("Search for drama with SQL injection in search returns a server error", async ({ request }) => {
+        const response = await request.get(generateFullApiUrl(`/api/search/q/${sqlInjection}`));
+        expect(response.status()).toBe(500);
+        const result = await response.json();
+        expect(result).toMatchObject({
+            detail: { code: 500, error: true, description: 'Internal server error' }
+        });
+
+        /**
+         * In a real application the response should be:
+         * 
+         * 400 Bad Request
+         * 404 Not Found
+         * 422 Unprocessable Entity
+         * 
+         * or simply treat the payload as a literal search string and return 200 with no results.
+         * 
+         * ✅ Never expose unauthorized data
+         * ✅ Never crash or throw an unhandled exception
+         * ✅ Reject or safely sanitize malicious input
+         */
     })
 
 })

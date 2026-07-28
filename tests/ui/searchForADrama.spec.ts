@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
-import { searchableDrama } from '../../main/utils/dataGenerator';
+import { searchableDrama, searchWithSpecialCharacters, sqlInjection } from '../../main/utils/dataGenerator';
 import { DramaDetailsPage } from '../../main/pages/DramaDetailsPage';
 import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 
@@ -65,6 +65,29 @@ test.describe("Search for a drama and validate results", () => {
         await searchResultsPage.confirmAbsenceOfSearchResult();
     });
 
+    test('Enter a search containing special characters', async ({ page, request }) => {
+
+        await navBar.enterAndPerformSearch(searchWithSpecialCharacters);
+        await searchResultsPage.confirmPresenceOfSearchResult(searchWithSpecialCharacters);
+    });
+
+    test('Enter a search with SQL injection and expect the page to be blocked', async ({ page, request }) => {
+
+        const responsePromise = page.waitForResponse(response =>
+            response.url().includes("/search?q") &&
+            response.request().method() === "GET"
+        );
+
+        await navBar.enterAndPerformSearch(sqlInjection);
+
+        const response = await responsePromise;
+        expect(response.status()).toBe(403);
+
+        await searchResultsPage.confirmThatThePageIsBlocked();
+        await searchResultsPage.confirmAbsenceOfSearchResult();
+
+    });
+
     test('Enter a search and have mock 500 Internal Server Error response', async ({ page, request }) => {
 
         await page.route("**/search?q=**", route => route.fulfill({ status: 500 }));
@@ -89,6 +112,19 @@ test.describe("Search for a drama and validate results", () => {
 
         await navBar.enterAndPerformSearch("The K2");
         await expect(page.getByText("HTTP ERROR 404")).toBeVisible();
+
+    });
+
+    test('Enter a search and simulate a 5 second network delay', async ({ page, request }) => {
+
+        // Intercept all requests and add a 2000ms delay
+        await page.route("**/search?q=**", async (route) => {
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+            await route.continue();
+        });
+
+        await navBar.enterAndPerformSearch("The Remarried Empress");
+        await searchResultsPage.confirmPresenceOfSearchResult("The Remarried Empress");
 
     });
 

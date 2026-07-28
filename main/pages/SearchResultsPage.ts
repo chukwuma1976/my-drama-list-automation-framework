@@ -24,4 +24,13 @@ export class SearchResultsPage {
         await expect(innerStrong).not.toBeAttached();
     }
 
+    async confirmPresenceOfSearchResult(query: string) {
+        const searchResult = this.page.locator('p.m-b-sm strong');
+        await expect(searchResult).toBeVisible();
+    }
+
+    async confirmThatThePageIsBlocked() {
+        await expect(this.page.getByText("Sorry, you have been blocked")).toBeVisible();
+    }
+
 }

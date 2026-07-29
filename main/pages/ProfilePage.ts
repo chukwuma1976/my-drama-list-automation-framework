@@ -57,6 +57,7 @@ export class ProfilePage {
     }
 
     async validateLocationField(location: string) {
+        await expect(this.locationInput).toBeVisible();
         const value = await this.locationInput.inputValue();
         expect(value).toBe(location);
     }

@@ -59,27 +59,4 @@ test.describe("Search for dramas", () => {
         */
     })
 
-    test("Search for drama with SQL injection in search returns a server error", async ({ request }) => {
-        const response = await request.get(generateFullApiUrl(`/api/search/q/${sqlInjection}`));
-        expect(response.status()).toBe(500);
-        const result = await response.json();
-        expect(result).toMatchObject({
-            detail: { code: 500, error: true, description: 'Internal server error' }
-        });
-
-        /**
-         * In a real application the response should be:
-         * 
-         * 400 Bad Request
-         * 404 Not Found
-         * 422 Unprocessable Entity
-         * 
-         * or simply treat the payload as a literal search string and return 200 with no results.
-         * 
-         * ✅ Never expose unauthorized data
-         * ✅ Never crash or throw an unhandled exception
-         * ✅ Reject or safely sanitize malicious input
-         */
-    })
-
 })

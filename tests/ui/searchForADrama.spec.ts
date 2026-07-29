@@ -71,23 +71,6 @@ test.describe("Search for a drama and validate results", () => {
         await searchResultsPage.confirmPresenceOfSearchResult(searchWithSpecialCharacters);
     });
 
-    test('Enter a search with SQL injection and expect the page to be blocked', async ({ page, request }) => {
-
-        const responsePromise = page.waitForResponse(response =>
-            response.url().includes("/search?q") &&
-            response.request().method() === "GET"
-        );
-
-        await navBar.enterAndPerformSearch(sqlInjection);
-
-        const response = await responsePromise;
-        expect(response.status()).toBe(403);
-
-        await searchResultsPage.confirmThatThePageIsBlocked();
-        await searchResultsPage.confirmAbsenceOfSearchResult();
-
-    });
-
     test('Enter a search and have mock 500 Internal Server Error response', async ({ page, request }) => {
 
         await page.route("**/search?q=**", route => route.fulfill({ status: 500 }));

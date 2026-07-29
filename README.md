@@ -1,55 +1,81 @@
 # 🎬 MyDramaList Automation Framework
 
-A comprehensive end-to-end automation framework built with **Playwright**, **TypeScript**, and **REST API testing** against the public MyDramaList API.
+A comprehensive end-to-end automation framework built with **Playwright**, **TypeScript**, **REST API testing**, and **k6** against the public MyDramaList API.
 
-This project demonstrates modern SDET practices, combining **UI automation**, **API validation**, **integration testing**, **accessibility testing**, **visual regression testing**, **network interception**, **authentication management**, and **performance testing**.
-
----
-
-## 🚀 Tech Stack
-
-* Playwright
-* TypeScript
-* Node.js
-* REST API Testing
-* Axe-Core Accessibility Testing
-* Visual Regression Testing
-* GitHub Actions (CI Ready)
-* k6 Performance Testing
+This project demonstrates modern SDET practices by combining **UI automation**, **API testing**, **integration testing**, **security testing**, **accessibility testing**, **visual regression testing**, **network interception**, **authentication management**, and **performance testing**.
 
 ---
 
-## ✅ Framework Features
+# 🚀 Tech Stack
 
-### 🖥️ UI Automation
-
-* Login / Logout
-* Registration validation
-* Search functionality
-* Drama Details pages
-* User Drama Lists
-* Review management
-* Ratings
-* Responsive UI validation
-
----
-
-### 🔌 API Testing
-
-* 13 public REST endpoints
-* Positive testing
-* Negative testing
-* Header validation
-* Response validation
-* Health endpoint testing
+- Playwright
+- TypeScript
+- Node.js
+- REST API Testing
+- AJV Schema Validation
+- Axe-Core Accessibility Testing
+- Visual Regression Testing
+- k6 Performance Testing
+- GitHub Actions (CI/CD Ready)
 
 ---
 
-### 🔄 Integration Testing
+# ✅ Framework Features
+
+## Framework Overview
+
+- UI Automation (Playwright & Selenium)
+- API Automation
+- End-to-End Testing
+- Integration Testing
+- Security Testing
+- Performance Testing (k6)
+- Accessibility Testing
+- Visual Regression Testing
+- AJV JSON Schema Validation
+- Authentication State Management
+- CI/CD Ready
+- Allure Reporting
+- Parallel Test Execution
+- Docker Support
+- Page Object Model (POM)
+- Modular Test Architecture
+
+---
+
+## 🖥️ UI Automation
+
+Current UI automation coverage includes:
+
+- Login / Logout
+- Registration validation
+- Search functionality
+- Drama Details pages
+- User Drama Lists
+- Review management
+- Ratings
+- Responsive UI validation
+
+---
+
+## 🔌 API Testing
+
+Current API coverage includes:
+
+- 13 Public REST Endpoints
+- Positive Testing
+- Negative Testing
+- Header Validation
+- Response Validation
+- Health Endpoint Testing
+
+---
+
+## 🔄 Integration Testing
 
 The framework demonstrates true UI/API integration.
 
-**Example workflow:**
+### Example Workflow
 
 ```text
 Login
@@ -71,199 +97,335 @@ This validates both frontend behavior and backend consistency.
 
 ---
 
-### 🔐 Authentication
+## 🔐 Authentication
 
 Playwright Storage State is used to eliminate repeated UI logins.
 
 Separate browser configurations exist for:
 
-* Authenticated flows
-* Login testing
-* Logout testing
-* Registration testing
-* Accessibility testing
-* Visual regression testing
+- Authenticated workflows
+- Login testing
+- Logout testing
+- Registration testing
+- Accessibility testing
+- Visual regression testing
 
 ---
 
-### ♿ Accessibility Testing
+## ♿ Accessibility Testing
 
 Accessibility testing is implemented using **axe-core/playwright**.
 
-Pages are automatically scanned for:
+Automated scans validate:
 
-* Missing labels
-* ARIA violations
-* Color contrast issues
-* Keyboard accessibility
-* Landmark violations
+- Missing labels
+- ARIA violations
+- Color contrast
+- Keyboard accessibility
+- Landmark violations
 
 ---
 
-### 📸 Visual Regression Testing
+## 📸 Visual Regression Testing
 
 Visual snapshot testing verifies UI consistency across stable pages.
 
-Example pages:
+Current coverage includes:
 
-* Login
-* Landing Page
-* Registration
+- Login
+- Landing Page
+- Registration
 
 ---
 
-### 🌐 Network Interception
+## 🌐 Network Interception
 
 Implemented scenarios include:
 
-* Blocking third-party advertisements
-* Mocking HTTP 403 responses
-* Mocking HTTP 404 responses
-* Mocking HTTP 500 responses
-* Simulating network failures
+- Blocking third-party advertisements
+- Mocking HTTP 403 responses
+- Mocking HTTP 404 responses
+- Mocking HTTP 500 responses
+- Simulating network failures
 
-This significantly improves test stability while reducing flaky tests.
+Network interception improves test stability while reducing flaky tests.
 
 ---
 
-### 🛡️ Header Validation
+## 🛡️ Header Validation
 
 Security and response headers are validated, including:
 
-* Content-Type
-* Cache-Control
-* Strict-Transport-Security
-* Content-Encoding
-* Server
+- Content-Type
+- Cache-Control
+- Strict-Transport-Security
+- Content-Encoding
+- Server
 
 ---
 
-### 📊 Data Validation
+## 📊 Data Validation
 
 Frontend and backend values are normalized before comparison.
 
-Examples include:
+Normalization includes:
 
-* Title formatting
-* Date formatting
-* Status values
-* Whitespace normalization
-* Capitalization differences
+- Title formatting
+- Date formatting
+- Status values
+- Whitespace normalization
+- Capitalization differences
 
 ---
 
-### 📚 Large Dataset Handling
+## 📚 Large Dataset Handling
 
 Large MyDramaList collections contain hundreds of records.
 
-Instead of validating every record, the framework intelligently partitions validation by inspecting every *n*th record, dramatically reducing execution time while maintaining meaningful coverage.
+Rather than validating every record, the framework intelligently samples every *n*th record, significantly reducing execution time while maintaining meaningful coverage.
 
 ---
 
-### ⏳ Eventual Consistency
+## ⏳ Eventual Consistency
 
-Some backend updates are asynchronous.
+Some backend operations complete asynchronously.
 
-The framework uses Playwright's `expect.poll()` to wait for API responses to reflect UI changes instead of relying on arbitrary delays.
-
----
-
-### ⚡ Performance Testing
-
-Performance testing is implemented using **k6**.
-
-Current scenarios include:
-
-* Smoke Testing
-* Load Testing
-* Spike Testing
-* Stress Testing
-* Soak Testing
+The framework uses Playwright's `expect.poll()` to wait for API responses to reflect UI changes rather than relying on arbitrary delays.
 
 ---
 
-## 📁 Project Structure
+# ⚡ Performance Testing
+
+Performance testing is implemented using **k6** to evaluate application responsiveness under varying workloads.
+
+## Performance Profiles
+
+| Test Type | Purpose |
+|------------|---------|
+| Smoke Test | Verifies application availability and basic responsiveness using a small number of virtual users. |
+| Load Test | Simulates expected production traffic under normal operating conditions. |
+| Spike Test | Simulates sudden increases in traffic to evaluate application recovery and scalability. |
+
+## Metrics Captured
+
+Performance tests collect:
+
+- Response Time
+- Request Duration
+- HTTP Status Codes
+- Failure Rate
+- Throughput
+
+Performance tests are maintained independently from UI and API automation and can be executed as part of regression or release validation.
+
+---
+
+# 🔒 Security Testing
+
+The framework includes a dedicated **Security Testing** module that validates application behavior against common attack vectors.
+
+## Current Security Coverage
+
+| Test | Purpose |
+|------|---------|
+| SQL Injection | Verifies SQL injection attempts are blocked without exposing database information. |
+| Cross-Site Scripting (XSS) | Validates malicious JavaScript payloads are rejected or sanitized. |
+| HTTP Method Validation | Confirms API endpoints only allow supported HTTP methods. |
+| Path Traversal | Verifies directory traversal attacks are rejected. |
+| Security Headers | Validates expected HTTP security headers are returned. |
+| Special Character Injection | Tests server handling of unexpected special characters. |
+| Unicode Input | Validates Unicode character handling. |
+| URL Encoding | Ensures encoded payloads are processed safely. |
+| Very Long Input | Verifies safe handling of excessively long input strings. |
+
+## Security Testing Strategy
+
+Whenever possible, security testing is performed at the **API layer** because:
+
+- API tests execute significantly faster than UI tests.
+- Backend validation isolates server-side behavior.
+- API responses are easier to validate using schema assertions.
+
+For user-facing attack vectors such as **SQL Injection** and **Cross-Site Scripting (XSS)**, complementary UI tests verify that the frontend properly blocks or sanitizes malicious input.
+
+This layered approach validates security controls from both the client and server perspectives.
+
+---
+
+# 📁 Project Structure
 
 ```text
 tests/
- ├── api/
- ├── auth/
- ├── accessibility/
- ├── integration/
- ├── ui/
- └── visualRegression/
+├── accessibility/
+├── api/
+├── auth/
+├── integration/
+├── performance/
+├── security/
+├── ui/
+└── visualRegression/
 
 main/
- ├── api/
- ├── pages/
- └── utils/
+├── api/
+├── pages/
+└── utils/
 
 playwright/
- └── auth/
-
-performance/
+└── auth/
 ```
 
 ---
 
-## 💡 Design Principles
+# ▶️ Test Execution
 
-This framework emphasizes:
+## Playwright Projects
 
-* Maintainability
-* Reusability
-* Readability
-* Separation of Concerns
-* DRY Principles
-* Reliable Synchronization
-* Stable Locator Strategies
+| Project | Purpose |
+|---------|---------|
+| **setup** | Performs authentication and stores the authenticated browser session. |
+| **chromium-auth** | Executes authenticated test scenarios. |
+| **chromium-clean** | Executes authentication, API, accessibility, and other clean-session tests. |
+
+### Run Entire Test Suite
+
+```bash
+npx playwright test
+```
+
+### Run Authenticated Tests
+
+```bash
+npx playwright test --project=chromium-auth
+```
+
+### Run Clean Session Tests
+
+```bash
+npx playwright test --project=chromium-clean
+```
+
+### Execute Authentication Setup
+
+```bash
+npx playwright test --project=setup
+```
+
+### Execute a Single Test File
+
+```bash
+npx playwright test tests/ui/search/search.spec.ts
+```
+
+### Run in Headed Mode
+
+```bash
+npx playwright test --headed
+```
+
+### Debug Tests
+
+```bash
+npx playwright test --debug
+```
+
+### View HTML Report
+
+```bash
+npx playwright show-report
+```
 
 ---
 
-## 🛠️ Skills Demonstrated
+# ⚡ Running Performance Tests
 
-* Playwright
-* TypeScript
-* REST APIs
-* UI Automation
-* API Automation
-* Integration Testing
-* Accessibility Testing
-* Visual Regression Testing
-* Network Interception
-* Authentication
-* Polling
-* Data Validation
-* Performance Testing
-* CI/CD Readiness
+Performance tests can be executed directly using **k6** or via the included helper script.
+
+## Execute Directly
+
+### Smoke Test
+
+```bash
+k6 run tests/performance/smoke/standard.js
+```
+
+### Load Test
+
+```bash
+k6 run tests/performance/load/standard.js
+```
+
+### Spike Test
+
+```bash
+k6 run tests/performance/spike/standard.js
+```
+
+## Execute Using the Helper Script
+
+```bash
+./run-performance-test.sh
+```
+
+The helper script provides a single entry point for launching performance test profiles.
 
 ---
 
-## 🔮 Future Enhancements
+# 💡 Design Principles
+
+The framework emphasizes:
+
+- Maintainability
+- Reusability
+- Readability
+- Separation of Concerns
+- DRY Principles
+- Reliable Synchronization
+- Stable Locator Strategies
+
+---
+
+# 🛠️ Skills Demonstrated
+
+- Playwright
+- Selenium
+- TypeScript
+- REST API Testing
+- UI Automation
+- Integration Testing
+- Security Testing
+- Accessibility Testing
+- Visual Regression Testing
+- Network Interception
+- Authentication Management
+- Performance Testing
+- AJV Schema Validation
+- CI/CD Readiness
+
+---
+
+# 🔮 Future Enhancements
 
 Potential future additions include:
 
-* Appium Mobile Automation
-* GraphQL Testing
-* Database Validation
-* AI-Assisted Test Generation
-* Distributed Test Execution
-* Contract Testing
+- Appium Mobile Automation
+- GraphQL Testing
+- Database Validation
+- AI-Assisted Test Generation
+- Distributed Test Execution
+- Contract Testing
 
 ---
 
-## 🎯 Purpose
+# 📈 Current Framework Metrics
 
-This project serves as a portfolio-quality automation framework designed to demonstrate modern SDET skills and enterprise automation practices using real-world workflows and publicly available APIs.
+- **121 Automated Tests**
+- **118 Passing**
+- **3 Known Timing-Related Tests**
+- **0 Failing Tests**
+- **~12 Minute Full Suite Execution**
 
 ---
 
-Current Framework Metrics
+# 🎯 Purpose
 
-• 121 Automated Tests
-• 118 Passing
-• 3 Known Flaky Tests (timing-related)
-• 0 Failing Tests
-• ~12 minute full suite execution
-
-#SDET #QA #TestAutomation #Playwright #TypeScript #APItesting #IntegrationTesting #AccessibilityTesting #VisualRegression #PerformanceTesting #k6 #CI_CD #AutomationFramework #SoftwareTesting #QualityEngineering
+This project serves as a portfolio-quality automation framework designed to demonstrate modern SDET skills and enterprise automation practices through real-world workflows and publicly available APIs.

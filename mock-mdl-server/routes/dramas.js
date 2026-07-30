@@ -36,9 +36,8 @@ function writeJSON(dramas) {
 }
 
 function validate(drama, isPatch = false) {
-    const keys = ["title", "slug", "status", "rating", "image", "url"];
+    const keys = isPatch ? ["status", "rating"] : ["title", "slug", "status", "rating", "image", "url"];
     let errors = [];
-    const existing = dramas.find(d => d.slug === drama.slug);
 
     if (drama.status &&
         !watchStatuses.map(s => s.toLowerCase()).includes(drama.status.toLowerCase())) {
@@ -118,9 +117,14 @@ router.post('/', (req, res) => {
     if (!validation.valid)
         return res.status(422).send({ message: "Unprocessable entity", errors: validation.errors });
     else {
-        dramas.push(drama);
+
+        //return only allowed fields
+        const { slug, url, title, image, status, rating } = drama;
+        const sanitizedDrama = { slug, url, title, image, status, rating }
+
+        dramas.push(sanitizedDrama);
         writeJSON(dramas);
-        return res.status(201).send(drama);
+        return res.status(201).send(sanitizedDrama);
     }
 })
 
@@ -131,11 +135,18 @@ router.patch('/:id', (req, res) => {
 
     const drama = dramas.find(drama => drama.slug === id);
 
-    if (drama) {
+    if (!drama)
+        return res.status(404).send({ message: "Drama not found" });
+
+    const validation = validate(payload, true);
+
+    if (!validation.valid)
+        return res.status(422).send({ message: "Unprocessable entity", errors: validation.errors });
+    else {
         //Ensure that only the status and rating can be changed
         const sanitizedPayload = {
-            status: payload.status || "",
-            rating: payload.rating || ""
+            status: payload.status,
+            rating: payload.rating
         }
 
         dramas = dramas.map(drama => drama.slug === id ? { ...drama, ...sanitizedPayload } : drama);
@@ -143,8 +154,6 @@ router.patch('/:id', (req, res) => {
 
         writeJSON(dramas);
         return res.status(200).send(updatedDrama);
-    } else {
-        return res.status(404).send({ message: "Drama not found" });
     }
 
 })

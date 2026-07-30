@@ -9,8 +9,7 @@ test.describe('API HTTP Verification methods', () => {
         const response = await request.get(generateFullApiUrl(`/api/search/q/${dramaMyDemon.slug}`));
         expect(response.status()).toBe(200);
         expect(response.statusText()).toBe("OK");
-        console.log(response.headers());
-        console.log(response.headersArray());
+
     });
 
     test('should not be able to handle POST request', async ({ request }) => {

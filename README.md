@@ -370,6 +370,26 @@ The helper script provides a single entry point for launching performance test p
 
 ---
 
+## Mock API
+
+The public MyDramaList API exposes only read-only GET endpoints.
+
+To support full CRUD automation scenarios, this project includes an Express.js mock API that simulates common application behavior.
+
+Supported endpoints include:
+
+- GET Drama List
+- GET Drama Details
+- POST Add Drama
+- PATCH Update Rating/Status
+- DELETE Remove Drama
+- Health Check
+
+The mock API was validated using Postman before being integrated into the Playwright API test suite.
+
+This enables realistic end-to-end API automation using all major HTTP verbs while preserving business logic similar to the production application.
+
+---
 # 💡 Design Principles
 
 The framework emphasizes:

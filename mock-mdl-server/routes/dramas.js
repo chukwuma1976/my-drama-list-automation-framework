@@ -3,9 +3,10 @@ import * as fs from 'fs';
 
 const router = express.Router();
 const file = "./allDramas.json";
+const backUpFile = "./baselineDramas.json"
 
 const watchStatuses = [
-    "Currently watching",
+    "Watching",
     "Completed",
     "On-hold",
     "Dropped",
@@ -34,9 +35,52 @@ function writeJSON(dramas) {
     })
 }
 
+function validate(drama, isPatch = false) {
+    const keys = ["title", "slug", "status", "rating", "image", "url"];
+    let errors = [];
+    const existing = dramas.find(d => d.slug === drama.slug);
+
+    if (drama.status &&
+        !watchStatuses.map(s => s.toLowerCase()).includes(drama.status.toLowerCase())) {
+        errors.push("Invalid status");
+    }
+
+    if (drama.rating) {
+        const rating = Number(drama.rating);
+
+        if (Number.isNaN(rating) || rating < 0 || rating > 10)
+            errors.push("Rating must be between 0 and 10");
+    }
+
+    for (const key of keys) {
+        if (!drama[key])
+            errors.push(`${key} must be present`);
+        if (drama[key] && typeof drama[key] !== "string")
+            errors.push(`${key} must be a string`);
+    }
+
+    return {
+        valid: errors.length === 0,
+        errors
+    }
+}
+
 // Health check
 router.get('/health', (req, res) => {
-    res.status(200).send({ "success": true });
+    res.status(200).send({ success: true });
+})
+
+// Reset
+router.post('/reset', (req, res) => {
+    fs.readFile(backUpFile, (error, data) => {
+        if (error) {
+            console.log('Could not read file');
+            throw error;
+        }
+        dramas = JSON.parse(data) || [];
+    });
+    writeJSON(dramas);
+    res.status(200).send({ success: true, message: "Dramas reset" });
 })
 
 // Getting the list of dramas from the mock database
@@ -64,38 +108,15 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     const drama = req.body;
 
-    const keys = ["title", "slug", "status", "rating", "image", "url"];
-    let errors = [];
     const existing = dramas.find(d => d.slug === drama.slug);
-    const allowedWatchStatus = watchStatuses.map(status => status.toLowerCase).includes(drama.status.toLowerCase());
 
     if (existing)
         return res.status(409).send({ message: "Drama already exists." });
 
-    if (payload.status && !allowedWatchStatus) {
-        return res.status(422).send({
-            message: "Invalid status"
-        });
-    }
+    const validation = validate(drama);
 
-    if (payload.rating) {
-        const rating = Number(payload.rating);
-
-        if (Number.isNaN(rating) || rating < 0 || rating > 10)
-            return res.status(422).send({
-                message: "Rating must be between 0 and 10"
-            });
-    }
-
-    for (const key of keys) {
-        if (!drama[key])
-            errors.push(`${key} must be present`);
-        if (typeof drama[key] !== "string")
-            errors.push(`${key} must be a string`);
-    }
-
-    if (errors.length > 0)
-        return res.status(422).send({ message: "Unprocessable entity", "errors": errors });
+    if (!validation.valid)
+        return res.status(422).send({ message: "Unprocessable entity", errors: validation.errors });
     else {
         dramas.push(drama);
         writeJSON(dramas);

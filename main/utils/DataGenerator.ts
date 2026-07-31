@@ -160,9 +160,58 @@ export const dramaForIntegrationTesting = {
     updatedRating: "8.5"
 }
 
-
 export const dramaVeilOfShadows = {
     slug: "761731-the-resurrection-painted-skin",
     url: "https://mydramalist.com/761731-the-resurrection-painted-skin",
     title: "Veil of Shadows (2026)",
 }
+
+const generateLongString = () => {
+    let str = ''
+    for (let i = 0; i < 100; i++) {
+        str += "Guardian: The Lonely and Great God";
+        str += " ABC ";
+    }
+    return str;
+}
+
+export const searchValidationStrings: { [key: string]: string } = {
+    exact_match: 'Guardian: The Lonely and Great God',
+    lower_Case: 'guardian: the lonely and great god',
+    upper_case: 'GUARDIAN: THE LONELY AND GREAT GOD',
+    partial_match: 'Guardian',
+    leading_spaces: '          Guardian: The Lonely and Great God',
+    trailing_spaces: 'Guardian: The Lonely and Great God          ',
+    very_long_string: generateLongString(),
+    emoji: '🌟Guardian:😀The🤬Lonely💛and❌Great⛔God🤝',
+    no_spaces: 'Guardian:TheLonelyandGreatGod'
+}
+
+export const searchWithSpecialCharacters = 'Guardian:%*&The#&Lonely_+?Great$God'
+
+export const searchValidationKeySet = Object.keys(searchValidationStrings)
+
+const name = "Alchemy of Souls"
+const param = "52939-can-this-person-be-translated"
+const person = '5346-moon-ga-young'
+const quarter = "2026/1"
+const publicUser = "CASmooth"
+
+export const sqlInjection = "999 OR 1 = 1";
+
+export const performanceTestingEndpoints = [
+    `/api/search/q/${name}`,
+    `/api/id/${param}`,
+    `/api/id/${param}/recs`,
+    `/api/id/${param}/cast`,
+    `/api/id/${param}/episodes`,
+    `/api/id/${param}/episodes/1`,
+    `/api/id/${param}/episodes/all`,
+    `/api/id/${param}/reviews`,
+    `/api/people/${person}`,
+    `/api/seasonal/${quarter}`,
+    // `/api/list/${username}`,
+    // `/api/list/${publicUser}`,
+    `/api/calendar`,
+    // `/api/healthcheck`,
+]

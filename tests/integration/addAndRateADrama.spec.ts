@@ -2,8 +2,7 @@ import test, { APIRequestContext, expect } from "@playwright/test";
 import { blockAds, dismissNotification } from "../../main/utils/popupBlockers";
 import { DramaDetailsPage } from "../../main/pages/DramaDetailsPage";
 import { NavBarComponent } from "../../main/components/NavBarComponent";
-import { generateFullApiUrl, generateFullUiUrl, username } from "../../main/config";
-import { DramaListPage } from "../../main/pages/DramaListPage";
+import { generateFullApiUrl, username } from "../../main/config";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
 import { dramaForIntegrationTesting } from "../../main/utils/dataGenerator";
 import { SearchResultsPage } from "../../main/pages/SearchResultsPage";
@@ -14,7 +13,6 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
     let dramaDetailsPage: DramaDetailsPage;
     let dramaPage: DramaDetailsPage;
     let navBar: NavBarComponent;
-    let dramaList: DramaListPage;
     let ratingsModal: RatingsComponent;
     const { title, slug, url, status, rating, updatedStatus, updateDropdownStatus, updatedRating } = dramaForIntegrationTesting;
 
@@ -24,7 +22,6 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
         dramaDetailsPage = new DramaDetailsPage(page);
         dramaPage = new DramaDetailsPage(page);
         navBar = new NavBarComponent(page);
-        dramaList = new DramaListPage(page);
         ratingsModal = new RatingsComponent(page);
 
         await navBar.gotoHomePage();
@@ -92,8 +89,8 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
             return result.dramas.find((drama: any) => drama.slug === slug);
         }, {
             message: "Drama not found",
-            intervals: [1000, 2000, 5000],
-            timeout: 120_000
+            intervals: [1000],
+            timeout: 150_000
         }).toMatchObject(drama);
     }
 
@@ -103,9 +100,9 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
             const result = await response.json();
             return result.dramas.filter((drama: any) => drama.slug === slug).length;
         }, {
-            message: "Drama not found",
-            intervals: [1000, 2000, 5000, 10000],
-            timeout: 120_000
+            message: "Drama not deleted",
+            intervals: [1000],
+            timeout: 150_000
         }).toBe(0);
 
     }

@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { blockedDomains } from "../resources/blockedDomains";
 
 export async function blockAds(page: Page) {
@@ -14,5 +14,6 @@ export async function blockAds(page: Page) {
 }
 
 export async function dismissNotification(page: Page) {
+    await expect(page.locator("div.el-notification__closeBtn.el-icon-close")).toBeVisible();
     await page.locator("div.el-notification__closeBtn.el-icon-close").click();
 }

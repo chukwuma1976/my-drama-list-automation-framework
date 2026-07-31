@@ -333,7 +333,11 @@ npx playwright test --debug
 ```bash
 npx playwright show-report
 ```
+### Run Entire Test Suite and Mock Server with Helper Script
 
+```bash
+./run-local.sh
+```
 ---
 
 # ⚡ Running Performance Tests
@@ -438,11 +442,11 @@ Potential future additions include:
 
 # 📈 Current Framework Metrics
 
-- **121 Automated Tests**
-- **118 Passing**
-- **3 Known Timing-Related Tests**
+- **169 Automated Tests**
+- **167 Passing**
+- **2 Known Timing-Related Tests**
 - **0 Failing Tests**
-- **~12 Minute Full Suite Execution**
+- **~8 Minute Full Suite Execution**
 
 ---
 

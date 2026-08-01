@@ -426,6 +426,44 @@ The framework emphasizes:
 - CI/CD Readiness
 
 ---
+## 📬 Postman API Testing
+
+In addition to automated API testing with **REST Assured** and the **Playwright Request API**, this project also includes a **Postman collection** for the mock MyDramaList server.
+
+The collection demonstrates complete API workflow validation, including:
+
+- Health Check
+- Retrieve Drama List
+- Retrieve Individual Drama
+- Add Drama (POST)
+- Update Drama Rating (PATCH)
+- Delete Drama (DELETE)
+- Collection Variables
+- Environment Variables
+- Automated Test Assertions
+
+The requests are organized to simulate a realistic end-to-end user workflow, making the collection useful for manual API exploration as well as automated execution.
+
+### Running the Collection in Postman
+
+Import both:
+
+- `postman/mock-mdl-postman-collection.json`
+- `postman/mock-mdl-postman-env.json`
+
+Then execute the collection using the Collection Runner.
+
+### Running the Collection with Newman
+
+The collection can also be executed from the command line using Newman.
+
+```bash
+newman run postman/mock-mdl-postman-collection.json \
+-e postman/mock-mdl-postman-env.json
+```
+
+This executes the complete API workflow outside of Postman and is suitable for local validation or CI/CD integration.
+---
 
 # 🔮 Future Enhancements
 

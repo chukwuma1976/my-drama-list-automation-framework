@@ -1,0 +1,398 @@
+{
+  "info": {
+    "_postman_id": "e14e01b5-feba-4d2d-bc4e-3fd26d1575d6",
+    "name": "Mock MDL Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29489268"
+  },
+  "item": [
+    {
+      "name": "POST / reset drama list",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Check if the response status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Check if the response body contains the correct message\", function () {\r",
+              "    pm.expect(pm.response.json().message).to.eql(\"Dramas reset\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Check if the response body contains the correct success status\", function () {\r",
+              "    pm.expect(pm.response.json().success).to.be.true;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/reset",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "reset"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET / all dramas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Response time is below 500 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Username is correct\", function () {\r",
+              "    pm.expect(response.username).to.eql(\"mdltester\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"User id is correct\", function () {\r",
+              "    pm.expect(response.user_id).to.eql(\"mdltester\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Number of dramas is correct\", function () {\r",
+              "    pm.expect(response.dramas.length).to.eql(response.total);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Content-Type is JSON\", function () {\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}",
+          "host": [
+            "{{BASE_URL}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET / a drama",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Content-Type is JSON\", function () {\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"slug\", \"756307-manager-kim\");"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/{{slug}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "{{slug}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET / health check",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code should be 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Health check should return success\", function () {\r",
+              "    pm.expect(pm.response.json().success).to.be.true;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/health",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST / new drama",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Check if the response status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "const body = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Check that the title of the response is correct\", function () {\r",
+              "    pm.expect(body.title).to.eql(\"The return of the Kuma\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Check that the slug of the response is correct\", function () {\r",
+              "    pm.expect(body.slug).to.eql(\"999999-kuma-still-slick-as-a-puma\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Check that the body status is correct\", function () {\r",
+              "    pm.expect(body.status).to.eql(\"Completed\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Check that the body rating is correct\", function () {\r",
+              "    pm.expect(body.rating).to.eql(\"9.0\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Check the the body url is correct\", function () {\r",
+              "    pm.expect(body.url).to.eql(\"https://mydramalist.com/999999-kuma-still-slick-as-a-puma\");\r",
+              "})\r",
+              "\r",
+              "pm.test(\"Check that the body image is correct\", function () {\r",
+              "    pm.expect(body.image).to.eql(\"https://mydramalist.com/I_make_this_look_good\");\r",
+              "})\r",
+              "\r",
+              "pm.collectionVariables.set(\"slug\", body.slug);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"The return of the Kuma\",\r\n    \"slug\": \"999999-kuma-still-slick-as-a-puma\",\r\n    \"status\": \"Completed\",\r\n    \"rating\": \"9.0\",\r\n    \"image\": \"https://mydramalist.com/I_make_this_look_good\",\r\n    \"url\": \"https://mydramalist.com/999999-kuma-still-slick-as-a-puma\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}",
+          "host": [
+            "{{BASE_URL}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH / update drama",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "const body = pm.response.json()\r",
+              "\r",
+              "pm.test(\"Response body containg updated status\", function () {\r",
+              "    pm.expect(body.status).to.eql(\"Completed\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response body containg updated rating\", function () {\r",
+              "    pm.expect(body.rating).to.eql(\"10.0\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"status\": \"Completed\", \"rating\": \"10.0\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{BASE_URL}}/{{slug}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "{{slug}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE / a drama",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Response status code is 204\", function () {\r",
+              "    pm.response.to.have.status(204);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/{{slug}}",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "{{slug}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": ""
+    },
+    {
+      "key": "slug",
+      "value": ""
+    }
+  ]
+}

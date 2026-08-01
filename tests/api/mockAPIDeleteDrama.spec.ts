@@ -1,9 +1,10 @@
 import test, { expect } from "@playwright/test";
-import { generateMockApiUrl, MOCK_API_URL } from "../../main/config";
+import { generateMockApiUrl } from "../../main/config";
+import { slugToBeDeletedInMockServer } from "../../main/utils/DataGenerator";
 
 test.describe("Testing PATCH method in mock my drama list API", () => {
 
-    const slug = "746387-agent-from-above";
+    const slug = slugToBeDeletedInMockServer;
 
     // Check if local server is running
     test.beforeAll(async ({ request }) => {

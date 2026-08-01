@@ -215,3 +215,34 @@ export const performanceTestingEndpoints = [
     `/api/calendar`,
     // `/api/healthcheck`,
 ]
+
+export const slugToBeDeletedInMockServer = "746387-agent-from-above";
+
+export const payloadToPatchInMockServer = {
+    "title": "Our Unwritten Seoul",
+    "slug": "762921-unknown-seoul",
+    "status": "On-hold",
+    "rating": "",
+    "image": "",
+    "url": "https://mydramalist.com/762921-unknown-seoul"
+}
+
+export const payloadForMockServerIntegrationTest = {
+    "slug": "314156-my-integration-drama-object",
+    "url": "https://mydramalist.com/314156-my-integration-drama-object",
+    "title": "My Drama Object (2026)",
+    "image": "https://i.mydramalist.com/0w0mZ6_4c.jpg?v=1",
+    "rating": "0.0",
+    "status": "Plan to watch"
+}
+
+export const payloadToPostInPostServer = {
+    "slug": "746993-my-demon",
+    "url": "https://mydramalist.com/746993-my-demon",
+    "title": "My Demon (2023)",
+    "image": "https://i.mydramalist.com/0w0mZ6_4c.jpg?v=1",
+    "rating": "8.5",
+    "status": "watching"
+}
+
+export const existingPayloadSlug = "808312-geurin-raiteu"

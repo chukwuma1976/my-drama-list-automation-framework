@@ -3,8 +3,8 @@ import { generateFullApiUrl } from '../../main/config';
 import { LoginPage } from '../../main/pages/LoginPage';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { CalendarPage } from '../../main/pages/CalendarPage';
-import { currentQuarter, twoDigitYear } from '../../main/utils/dateTimeGenerator';
 import { blockAds } from '../../main/utils/popupBlockers';
+import { currentQuarter, twoDigitYear } from '../../main/utils/DateTimeGenerator';
 
 test.describe("Check calendar page for currently airing dramas", () => {
 

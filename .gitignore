@@ -8,3 +8,4 @@ node_modules/
 /playwright/.auth/
 .env
 /reports/
+mock-mdl-server/allDramas.json

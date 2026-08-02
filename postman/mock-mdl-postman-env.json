@@ -1,0 +1,16 @@
+{
+	"id": "a8aedaa1-3420-47cd-a0f9-d3a73b6525f1",
+	"name": "Mock MDL Environment",
+	"values": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:5000/api/dramalist",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"color": 240,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-08-01T22:01:53.814Z",
+	"_postman_exported_using": "Postman/12.21.6"
+}

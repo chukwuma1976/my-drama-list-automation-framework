@@ -336,7 +336,7 @@ npx playwright show-report
 ### Run Entire Test Suite and Mock Server with Helper Script
 
 ```bash
-./run-local.sh
+scripts/run-local.sh
 ```
 ---
 
@@ -367,13 +367,12 @@ k6 run tests/performance/spike/standard.js
 ## Execute Using the Helper Script
 
 ```bash
-./run-performance-test.sh
+scripts/run-performance-test.sh
 ```
 
 The helper script provides a single entry point for launching performance test profiles.
 
 ---
-
 ## Mock API
 
 The public MyDramaList API exposes only read-only GET endpoints.
@@ -393,7 +392,12 @@ The mock API was validated using Postman before being integrated into the Playwr
 
 This enables realistic end-to-end API automation using all major HTTP verbs while preserving business logic similar to the production application.
 
+### Authenticated API Testing
+
+Due to Cloudflare bot protection on the public MyDramaList API, authenticated API workflows were validated using Postman collections executed with Newman. The framework also includes a mock Express.js API that supports full CRUD operations for automated REST API testing without external authentication restrictions.
+
 ---
+
 # 💡 Design Principles
 
 The framework emphasizes:
@@ -425,6 +429,50 @@ The framework emphasizes:
 - AJV Schema Validation
 - CI/CD Readiness
 
+---
+## 📬 Postman API Testing
+
+In addition to automated API testing with **REST Assured** and the **Playwright Request API**, this project also includes a **Postman collection** for the mock MyDramaList server.
+
+The collection demonstrates complete API workflow validation, including:
+
+- Health Check
+- Retrieve Drama List
+- Retrieve Individual Drama
+- Add Drama (POST)
+- Update Drama Rating (PATCH)
+- Delete Drama (DELETE)
+- Collection Variables
+- Environment Variables
+- Automated Test Assertions
+
+The requests are organized to simulate a realistic end-to-end user workflow, making the collection useful for manual API exploration as well as automated execution.
+
+### Running the Collection in Postman
+
+Import both:
+
+- `postman/mock-mdl-postman-collection.json`
+- `postman/mock-mdl-postman-env.json`
+
+Then execute the collection using the Collection Runner.
+
+### Running the Collection with Newman
+
+The collection can also be executed from the command line using Newman.
+
+```bash
+newman run postman/mock-mdl-postman-collection.json \
+-e postman/mock-mdl-postman-env.json
+```
+
+### Running the Collection and Mock Server
+
+```bash
+scripts/run-postman
+```
+
+This executes the complete API workflow outside of Postman and is suitable for local validation or CI/CD integration.
 ---
 
 # 🔮 Future Enhancements

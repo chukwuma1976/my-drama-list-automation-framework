@@ -1,0 +1,231 @@
+{
+  "info": {
+    "_postman_id": "ce6a384e-181a-49e5-8f41-d31e105723b6",
+    "name": "MDL Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29489268"
+  },
+  "item": [
+    {
+      "name": "POST / auth login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "    });\r",
+              "\r",
+              "pm.test(\"Response time is less than 500ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "    });\r",
+              "\r",
+              "pm.test(\"Access token is present\", function () {\r",
+              "    pm.expect(pm.response.json().access_token).to.not.be.null;\r",
+              "    });\r",
+              "\r",
+              "const token = pm.response.json().access_token;\r",
+              "\r",
+              "pm.environment.set(\"access_token\", token);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"mdltester\",\r\n    \"password\": \"ab79505f09dba85a77b3091c1db699eb\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://mydramalist.com/v1/auth/login?lang=en-US",
+          "protocol": "https",
+          "host": [
+            "mydramalist",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "auth",
+            "login"
+          ],
+          "query": [
+            {
+              "key": "lang",
+              "value": "en-US"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH / update drama",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.collectionVariables.set(\"id\", \"779398\"); // Replace with the actual user ID\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Watch status is updated to 2\", function () {\r",
+              "    pm.expect(pm.response.json().watch_status).to.equal(2);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Score is updated to 7.5\", function () {\r",
+              "    pm.expect(pm.response.json().score).to.equal(7.5);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "watch_status",
+              "value": "2",
+              "type": "text"
+            },
+            {
+              "key": "episode_seen",
+              "value": "1",
+              "type": "text"
+            },
+            {
+              "key": "id",
+              "value": "339895106",
+              "type": "text"
+            },
+            {
+              "key": "score",
+              "value": "7.5",
+              "type": "text"
+            },
+            {
+              "key": "priority",
+              "value": "0",
+              "type": "text"
+            },
+            {
+              "key": "times_rewatched",
+              "value": "0",
+              "type": "text"
+            },
+            {
+              "key": "rewatch_value",
+              "value": "0",
+              "type": "text"
+            },
+            {
+              "key": "date_start",
+              "value": "2026-07-17",
+              "type": "text"
+            },
+            {
+              "key": "date_finish",
+              "value": "2026-08-01",
+              "type": "text"
+            },
+            {
+              "key": "note",
+              "value": "",
+              "type": "text"
+            },
+            {
+              "key": "share_twitter",
+              "value": "false",
+              "type": "text"
+            },
+            {
+              "key": "share_mdl",
+              "value": "false",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "https://mydramalist.com/v1/users/watchaction/{{id}}?lang=en-US",
+          "protocol": "https",
+          "host": [
+            "mydramalist",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "users",
+            "watchaction",
+            "{{id}}"
+          ],
+          "query": [
+            {
+              "key": "lang",
+              "value": "en-US"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "id",
+      "value": ""
+    }
+  ]
+}

@@ -1,16 +1,10 @@
 import test, { expect } from "@playwright/test";
-import { generateMockApiUrl, MOCK_API_URL } from "../../main/config";
+import { generateMockApiUrl } from "../../main/config";
+import { payloadToPatchInMockServer } from "../../main/utils/dataGenerator";
 
 test.describe("Testing PATCH method in mock my drama list API", () => {
 
-    const payload = {
-        "title": "Our Unwritten Seoul",
-        "slug": "762921-unknown-seoul",
-        "status": "On-hold",
-        "rating": "",
-        "image": "",
-        "url": "https://mydramalist.com/762921-unknown-seoul"
-    }
+    const payload = payloadToPatchInMockServer;
 
     // Check if local server is running
     test.beforeAll(async ({ request }) => {

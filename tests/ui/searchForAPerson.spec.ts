@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
-import { searchableActress } from '../../main/utils/dataGenerator';
+import { searchableActress } from '../../main/utils/DataGenerator';
 import { PersonDetailsPage } from '../../main/pages/PersonDetailsPage';
 import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 

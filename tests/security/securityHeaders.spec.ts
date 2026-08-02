@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
-import { searchableDrama } from '../../main/utils/dataGenerator';
+import { searchableDrama } from '../../main/utils/DataGenerator';
 
 test('Validate response security headers', async ({ request }) => {
     // Make the GET request

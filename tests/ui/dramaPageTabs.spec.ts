@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test"
 import { DramaDetailsPage } from "../../main/pages/DramaDetailsPage";
 import { blockAds, dismissNotification } from "../../main/utils/popupBlockers";
 import { generateFullApiUrl } from "../../main/config";
-import { dramaVeilOfShadows } from "../../main/utils/dataGenerator";
+import { dramaVeilOfShadows } from "../../main/utils/DataGenerator";
 import { EpisodesPage } from "../../main/pages/EpisodesPage";
 import { CastPage } from "../../main/pages/CastPage";
 import { RecsPage } from "../../main/pages/RecsPage";

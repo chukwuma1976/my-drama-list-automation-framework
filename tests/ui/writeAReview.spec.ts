@@ -1,7 +1,7 @@
 import test, { expect } from "@playwright/test"
 import { blockAds, dismissNotification } from "../../main/utils/popupBlockers";
 import { DramaDetailsPage } from "../../main/pages/DramaDetailsPage";
-import { dramaMyDemon } from "../../main/utils/dataGenerator";
+import { dramaMyDemon } from "../../main/utils/DataGenerator";
 import { generateFullUiUrl } from "../../main/config";
 import { WriteReviewPage } from "../../main/pages/WriteReviewPage";
 

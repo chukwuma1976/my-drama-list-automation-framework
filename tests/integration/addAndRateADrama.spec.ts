@@ -4,7 +4,7 @@ import { DramaDetailsPage } from "../../main/pages/DramaDetailsPage";
 import { NavBarComponent } from "../../main/components/NavBarComponent";
 import { generateFullApiUrl, username } from "../../main/config";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
-import { dramaForIntegrationTesting } from "../../main/utils/dataGenerator";
+import { dramaForIntegrationTesting } from "../../main/utils/DataGenerator";
 import { SearchResultsPage } from "../../main/pages/SearchResultsPage";
 
 test.describe("Integration test to add, rate, update rating, and delete drama", () => {

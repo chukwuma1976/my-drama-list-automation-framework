@@ -12,7 +12,7 @@ test.describe("Get reviews", () => {
     addFormats(ajv);
     const validate = ajv.compile(dramaReviewsSchema);
 
-    test(`get reviews for all episodes in a drama`, async ({ request }) => {
+    test(`get reviews for all episodes in a drama`, { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/reviews`));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -20,7 +20,7 @@ test.describe("Get reviews", () => {
         validateHeaders(response.headers());
     })
 
-    test("get reviews with an invalid parameter", async ({ request }) => {
+    test("get reviews with an invalid parameter", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/reviews`));
         expect(response.status()).toBe(500);
         const result = await response.json();

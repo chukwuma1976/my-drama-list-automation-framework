@@ -3,7 +3,7 @@ import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
 import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 
-test.describe("Test for XSS injection", () => {
+test.describe("Test for XSS injection", { tag: ['@security'] }, () => {
 
     test('Enter a search with XSS injection and expect the page to be blocked', async ({ page, request }) => {
 

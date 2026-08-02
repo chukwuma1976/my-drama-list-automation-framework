@@ -3,7 +3,7 @@ import { blockAds } from '../../main/utils/popupBlockers';
 import { LoginPage } from '../../main/pages/LoginPage';
 import { getAccessibilityScanViolations, logAccessibilityScanResults } from '../../main/utils/accessibilityFunctions';
 
-test.describe("Accessibility testing for login page", () => {
+test.describe("Accessibility testing for login page", { tag: ['@accessibility'] }, () => {
 
     let loginPage: LoginPage;
 

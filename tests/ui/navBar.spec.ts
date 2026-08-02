@@ -12,7 +12,7 @@ test.describe("check contents and functionality of navigation bar", () => {
         await navBar.gotoHomePage();
     })
 
-    test("check contents of navigation bar", async ({ page }) => {
+    test("check contents of navigation bar", { tag: ['@regression'] }, async ({ page }) => {
         await navBar.clickHome();
         await navBar.clickExplore();
         await navBar.clickCommunity();
@@ -21,17 +21,17 @@ test.describe("check contents and functionality of navigation bar", () => {
         await navBar.confirmPresenceOfSearchInput();
     })
 
-    test("confirm calendar button navigates to calendar page", async ({ page }) => {
+    test("confirm calendar button navigates to calendar page", { tag: ['@regression'] }, async ({ page }) => {
         await navBar.clickCalendar();
         await navBar.confirmNavigationToCalendarPage();
     })
 
-    test("confirm search with input works", async ({ page }) => {
+    test("confirm search with input works", { tag: ['@regression'] }, async ({ page }) => {
         await navBar.enterAndPerformSearch("Moving");
         await navBar.confirmNavigationtoSearchPage();
     })
 
-    test("confirm darkmode button works", async ({ page }) => {
+    test("confirm darkmode button works", { tag: ['@regression'] }, async ({ page }) => {
         await navBar.clickDarkModeButton();
         const darkModeStart = await navBar.getDarkModeIndicator();
 

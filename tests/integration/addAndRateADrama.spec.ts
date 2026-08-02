@@ -27,7 +27,7 @@ test.describe("Integration test to add, rate, update rating, and delete drama", 
         await navBar.gotoHomePage();
     })
 
-    test("Integration testing", async ({ page, request }) => {
+    test("Integration testing", { tag: ['@regression', '@integration'] }, async ({ page, request }) => {
 
         //perform API test first to get test data
         const response = await request.get(generateFullApiUrl(`/api/id/${slug}`));

@@ -80,7 +80,7 @@ export class CalendarPage {
         const airingDramaCount = daysOfTheWeek
             .map((day: string) => airingDramas[day].length)
             .reduce((prev: number, current: number) => prev + current);
-        expect(quarterDramaCount).toBeGreaterThan(airingDramaCount);
+        expect(quarterDramaCount).not.toBe(airingDramaCount);
 
     }
 

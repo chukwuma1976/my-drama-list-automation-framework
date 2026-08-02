@@ -14,7 +14,7 @@ test.describe("Get person details", () => {
 
     actors.forEach((actor) => {
 
-        test(`get person details for ${actor}`, async ({ request }) => {
+        test(`get person details for ${actor}`, { tag: ['@regression'] }, async ({ request }) => {
             const response = await request.get(generateFullApiUrl(`/api/people/${actor}`));
             expect(response.status()).toBe(200);
             const result = await response.json();
@@ -24,7 +24,7 @@ test.describe("Get person details", () => {
 
     })
 
-    test("get person details with invalid parameter", async ({ request }) => {
+    test("get person details with invalid parameter", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/people/invalid`));
         expect(response.status()).toBe(500);
         const result = await response.json();

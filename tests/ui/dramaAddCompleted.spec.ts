@@ -28,7 +28,7 @@ test.describe("Perform different actions with dramas", () => {
 
     })
 
-    test('Add a drama, mark completed. and give it a rating of 10', async ({ page }) => {
+    test('Add a drama, mark completed. and give it a rating of 10', { tag: ['@regression'] }, async ({ page }) => {
 
         await dramaPage.clickAddToList();
         await ratingsModal.selectWatchStatus("Completed");

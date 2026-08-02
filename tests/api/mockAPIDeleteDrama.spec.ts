@@ -22,13 +22,13 @@ test.describe("Testing DELETE method in mock my drama list API", () => {
         await request.post(generateMockApiUrl("reset"))
     });
 
-    test("Test DELETE request with positive scenario", async ({ request }) => {
+    test("Test DELETE request with positive scenario", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.delete(generateMockApiUrl(slug));
         expect(response.status()).toBe(204);
         expect(response.statusText()).toBe("No Content");
     })
 
-    test("Test DELETE request trying to delete non existent resource", async ({ request }) => {
+    test("Test DELETE request trying to delete non existent resource", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.delete(generateMockApiUrl("non-existent-resource"));
         expect(response.status()).toBe(404);
         expect(response.statusText()).toBe("Not Found");

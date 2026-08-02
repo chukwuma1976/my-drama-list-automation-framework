@@ -23,7 +23,7 @@ test.describe("Write a review", () => {
         await dismissNotification(page);
     })
 
-    test("Write a review", async ({ page }) => {
+    test("Write a review", { tag: ['@regression'] }, async ({ page }) => {
 
         await writeReviewPage.enterStoryRating("8.0");
         await writeReviewPage.enterActingRating("9.5");

@@ -22,7 +22,7 @@ test.describe("Test drama list page", () => {
         await dismissNotification(page);
     })
 
-    test("Confirm that dramas from the server appear in UI Drama list", async ({ page }) => {
+    test("Confirm that dramas from the server appear in UI Drama list", { tag: ['@smoke', '@regression'] }, async ({ page }) => {
         await dramaListPage.verifyPresenceOfAllDramasInList(userDramaList);
     })
 

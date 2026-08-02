@@ -8,7 +8,7 @@ import { WriteReviewPage } from '../../main/pages/WriteReviewPage';
 import { ProfilePage } from '../../main/pages/ProfilePage';
 import { getAccessibilityScanViolations, logAccessibilityScanResults } from '../../main/utils/accessibilityFunctions';
 
-test.describe("Accessibility testing on different pages of the application", () => {
+test.describe("Accessibility testing on different pages of the application", { tag: ['@accessibility'] }, () => {
 
     let navBar: NavBarComponent;
 

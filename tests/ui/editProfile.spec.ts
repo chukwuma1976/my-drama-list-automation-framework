@@ -18,7 +18,7 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         profilePage = new ProfilePage(page);
     })
 
-    test('Edit profile about me section', async ({ page, browser }) => {
+    test('Edit profile about me section', { tag: ['@regression'] }, async ({ page, browser }) => {
 
         //Navigate to profile section
         await profilePage.gotoProfilePage();
@@ -49,7 +49,7 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         await context.close();
     });
 
-    test('Edit profile picture by uploading a non image file return a 500 server error', async ({ page }) => {
+    test('Edit profile picture by uploading a non image file return a 500 server error', { tag: ['@regression'] }, async ({ page }) => {
 
         //Navigate to profile section
         await profilePage.gotoProfilePage();

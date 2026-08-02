@@ -11,7 +11,7 @@ test.describe("Get currently airing dramas", () => {
     addFormats(ajv);
     const validate = ajv.compile(dramasCurrentlyAiringSchema);
 
-    test("get currently airing dramas", async ({ request }) => {
+    test("get currently airing dramas", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl("/api/calendar"));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -19,7 +19,7 @@ test.describe("Get currently airing dramas", () => {
         validateHeaders(response.headers());
     })
 
-    test("get currently airing dramas with mispelled URL", async ({ request }) => {
+    test("get currently airing dramas with mispelled URL", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl("/api/calAndar"));
         expect(response.status()).toBe(404);
         const result = await response.json();

@@ -24,7 +24,7 @@ test.describe("Test drama list page", () => {
     })
 
 
-    test("Confirm that dramas from the server appear in another users Drama list", async ({ page }) => {
+    test("Confirm that dramas from the server appear in another users Drama list", { tag: ['@regression'] }, async ({ page }) => {
         await dramaListPage.verifyPresenceOfDramasInListByPartitioning(userDramaList);
     })
 

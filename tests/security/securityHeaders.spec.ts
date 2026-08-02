@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 import { searchableDrama } from '../../main/utils/DataGenerator';
 
-test('Validate response security headers', async ({ request }) => {
+test('Validate response security headers', { tag: ['@security'] }, async ({ request }) => {
     // Make the GET request
     const response = await request.get(generateFullApiUrl(`/api/search/q/${searchableDrama.slug}`));
     const headers = response.headers();

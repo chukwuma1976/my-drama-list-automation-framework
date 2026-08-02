@@ -21,7 +21,7 @@ test.describe("Search for a drama and validate results", () => {
         await navBar.gotoHomePage();
     })
 
-    test('Search for a drama and validate details', async ({ page, request }) => {
+    test('Search for a drama and validate details', { tag: ['@smoke', '@regression'] }, async ({ page, request }) => {
         const { title, slug } = searchableDrama;
 
         //perform API test first to get test data
@@ -49,7 +49,7 @@ test.describe("Search for a drama and validate results", () => {
 
     });
 
-    test('Enter an invalid search', async ({ page, request }) => {
+    test('Enter an invalid search', { tag: ['@regression'] }, async ({ page, request }) => {
 
         await navBar.enterAndPerformSearch("========================");
         await navBar.confirmNavigationtoSearchPage();
@@ -57,7 +57,7 @@ test.describe("Search for a drama and validate results", () => {
         await searchResultsPage.confirmNoMatchingResultsMessage();
     });
 
-    test('Enter an blank search', async ({ page, request }) => {
+    test('Enter an blank search', { tag: ['@regression'] }, async ({ page, request }) => {
 
         await navBar.enterAndPerformSearch("");
         await navBar.confirmNavigationtoSearchPage();
@@ -65,13 +65,13 @@ test.describe("Search for a drama and validate results", () => {
         await searchResultsPage.confirmAbsenceOfSearchResult();
     });
 
-    test('Enter a search containing special characters', async ({ page, request }) => {
+    test('Enter a search containing special characters', { tag: ['@regression'] }, async ({ page, request }) => {
 
         await navBar.enterAndPerformSearch(searchWithSpecialCharacters);
         await searchResultsPage.confirmPresenceOfSearchResult(searchWithSpecialCharacters);
     });
 
-    test('Enter a search and have mock 500 Internal Server Error response', async ({ page, request }) => {
+    test('Enter a search and have mock 500 Internal Server Error response', { tag: ['@regression'] }, async ({ page, request }) => {
 
         await page.route("**/search?q=**", route => route.fulfill({ status: 500 }));
 
@@ -80,7 +80,7 @@ test.describe("Search for a drama and validate results", () => {
 
     });
 
-    test('Enter a search and have mock 403 Forbidden error response', async ({ page, request }) => {
+    test('Enter a search and have mock 403 Forbidden error response', { tag: ['@regression'] }, async ({ page, request }) => {
 
         await page.route("**/search?q=**", route => route.fulfill({ status: 403 }));
 
@@ -89,7 +89,7 @@ test.describe("Search for a drama and validate results", () => {
 
     });
 
-    test('Enter a search and have mock 404 Not Found error response', async ({ page, request }) => {
+    test('Enter a search and have mock 404 Not Found error response', { tag: ['@regression'] }, async ({ page, request }) => {
 
         await page.route("**/search?q=**", route => route.fulfill({ status: 404 }));
 
@@ -98,7 +98,7 @@ test.describe("Search for a drama and validate results", () => {
 
     });
 
-    test('Enter a search and simulate a 5 second network delay', async ({ page, request }) => {
+    test('Enter a search and simulate a 5 second network delay', { tag: ['@regression'] }, async ({ page, request }) => {
 
         // Intercept all requests and add a 2000ms delay
         await page.route("**/search?q=**", async (route) => {

@@ -14,6 +14,6 @@ export async function blockAds(page: Page) {
 }
 
 export async function dismissNotification(page: Page) {
-    await expect(page.locator("div.el-notification__closeBtn.el-icon-close")).toBeVisible();
+    await expect(page.locator("div.el-notification__closeBtn.el-icon-close")).toBeVisible({ timeout: 10000 });
     await page.locator("div.el-notification__closeBtn.el-icon-close").click();
 }

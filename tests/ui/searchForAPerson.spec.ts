@@ -21,7 +21,7 @@ test.describe("Search for a person on the website", () => {
         await navBar.gotoHomePage();
     })
 
-    test('Search for a drama and validate details', async ({ page, request }) => {
+    test('Search for a drama and validate details', { tag: ['@smoke', '@regression'] }, async ({ page, request }) => {
         const { name, slug } = searchableActress;
 
         //perform API test first to get test data

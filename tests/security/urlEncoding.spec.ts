@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 
-test.describe('API Path URL Encoding Tests', () => {
+test.describe('API Path URL Encoding Tests', { tag: ['@security'] }, () => {
 
     test('should handle raw string with spaces', async ({ request }) => {
         const rawParam = 'Alchemy of Souls';

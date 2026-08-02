@@ -12,7 +12,7 @@ test.describe("Get recommendations", () => {
     addFormats(ajv);
     const validate = ajv.compile(dramaRecommendations);
 
-    test("get recommendations for a drama", async ({ request }) => {
+    test("get recommendations for a drama", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/recs`));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -21,14 +21,14 @@ test.describe("Get recommendations", () => {
         validateHeaders(response.headers());
     })
 
-    test("get recommendations with missing parameter", async ({ request }) => {
+    test("get recommendations with missing parameter", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id//recs`));
         expect(response.status()).toBe(500);
         const result = await response.json();
         expect(result.detail.description).toBe("Internal server error");
     })
 
-    test("get recommendations with invalid parameter", async ({ request }) => {
+    test("get recommendations with invalid parameter", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/recs`));
         expect(response.status()).toBe(500);
         const result = await response.json();

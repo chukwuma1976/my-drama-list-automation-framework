@@ -7,7 +7,7 @@ import { dramaToAdd } from "../../main/utils/DataGenerator";
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
 
-test.describe("Perform different actions with dramas", () => {
+test.describe("Perform different actions with dramas", { tag: ['@regression'] }, () => {
 
     let dramaPage: DramaDetailsPage;
     let navBar: NavBarComponent;
@@ -28,7 +28,7 @@ test.describe("Perform different actions with dramas", () => {
 
     })
 
-    test('Add a drama, mark completed. and give it a rating of 10', { tag: ['@regression'] }, async ({ page }) => {
+    test('Add a drama, mark completed. and give it a rating of 10', async ({ page }) => {
 
         await dramaPage.clickAddToList();
         await ratingsModal.selectWatchStatus("Completed");

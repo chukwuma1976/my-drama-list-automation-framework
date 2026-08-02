@@ -3,7 +3,7 @@ import { generateFullApiUrl, generateFullUiUrl, username } from "../../main/conf
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { blockAds, dismissNotification } from "../../main/utils/popupBlockers";
 
-test.describe("Test drama list page", () => {
+test.describe("Test drama list page", { tag: ['@regression'] }, () => {
 
     let userDramaList: any[];
     let dramaListPage: DramaListPage;
@@ -24,7 +24,7 @@ test.describe("Test drama list page", () => {
     })
 
 
-    test("Confirm that dramas from the server appear in another users Drama list", { tag: ['@regression'] }, async ({ page }) => {
+    test("Confirm that dramas from the server appear in another users Drama list", async ({ page }) => {
         await dramaListPage.verifyPresenceOfDramasInListByPartitioning(userDramaList);
     })
 

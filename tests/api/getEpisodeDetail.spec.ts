@@ -6,14 +6,14 @@ import addFormats from "ajv-formats";
 import { dramaEpisodeDetailSchema } from "../../main/schemas/dramaEpisodeDetailSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get drama episode details", () => {
+test.describe("Get drama episode details", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);
     const validate = ajv.compile(dramaEpisodeDetailSchema);
 
     for (let i = 1; i <= 10; i++) {
-        test(`get drama episode details for episode ${i} a drama`, { tag: ['@regression'] }, async ({ request }) => {
+        test(`get drama episode details for episode ${i} a drama`, async ({ request }) => {
             const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/episodes/${i}`));
             expect(response.status()).toBe(200);
             const result = await response.json();

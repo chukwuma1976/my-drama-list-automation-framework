@@ -6,13 +6,13 @@ import addFormats from "ajv-formats";
 import { dramaCastAndCrewSchema } from "../../main/schemas/dramaCastAndCrewSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get cast and crew", () => {
+test.describe("Get cast and crew", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);
     const validate = ajv.compile(dramaCastAndCrewSchema);
 
-    test("get drama cast and crew for a drama", { tag: ['@regression'] }, async ({ request }) => {
+    test("get drama cast and crew for a drama", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/cast`));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -20,7 +20,7 @@ test.describe("Get cast and crew", () => {
         validateHeaders(response.headers());
     })
 
-    test("get drama cast and crew with invalid parameter", { tag: ['@regression'] }, async ({ request }) => {
+    test("get drama cast and crew with invalid parameter", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/cast`));
         expect(response.status()).toBe(500);
         const result = await response.json();

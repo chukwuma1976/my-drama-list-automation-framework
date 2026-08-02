@@ -7,7 +7,7 @@ import { EpisodesPage } from "../../main/pages/EpisodesPage";
 import { CastPage } from "../../main/pages/CastPage";
 import { RecsPage } from "../../main/pages/RecsPage";
 
-test.describe("Verify functionality of different pages", () => {
+test.describe("Verify functionality of different pages", { tag: ['@regression'] }, () => {
 
     let dramaDetailsPage: DramaDetailsPage;
     const { title, slug, url } = dramaVeilOfShadows;
@@ -20,7 +20,7 @@ test.describe("Verify functionality of different pages", () => {
         await dismissNotification(page);
     })
 
-    test("Navigate to drama episodes page and verify all episodes are present", { tag: ['@regression'] }, async ({ page, request }) => {
+    test("Navigate to drama episodes page and verify all episodes are present", async ({ page, request }) => {
 
         await dramaDetailsPage.clickEpisodesLink();
         const episodesPage = new EpisodesPage(page);
@@ -33,7 +33,7 @@ test.describe("Verify functionality of different pages", () => {
         await episodesPage.verifyAllEpisodeTitles(result);
     })
 
-    test("Navigate to a specific drama episode page and verify all data are present", { tag: ['@regression'] }, async ({ page, request }) => {
+    test("Navigate to a specific drama episode page and verify all data are present", async ({ page, request }) => {
 
         await dramaDetailsPage.clickEpisodesLink();
         const episodesPage = new EpisodesPage(page);
@@ -56,7 +56,7 @@ test.describe("Verify functionality of different pages", () => {
 
     })
 
-    test("Navigate to drama cast page and verify all cast members are present", { tag: ['@regression'] }, async ({ page, request }) => {
+    test("Navigate to drama cast page and verify all cast members are present", async ({ page, request }) => {
 
         await dramaDetailsPage.clickCastLink();
         const castPage = new CastPage(page);
@@ -69,7 +69,7 @@ test.describe("Verify functionality of different pages", () => {
         await castPage.verifyAllCastMembersPresent(result.cast);
     })
 
-    test("Navigate to drama recommendations page and verify all recommendations are present", { tag: ['@regression'] }, async ({ page, request }) => {
+    test("Navigate to drama recommendations page and verify all recommendations are present", async ({ page, request }) => {
 
         await dramaDetailsPage.clickRecsLink();
         const recsPage = new RecsPage(page);

@@ -1,18 +1,18 @@
 import test, { expect } from "@playwright/test";
-import { BASE_API_URL, generateFullApiUrl } from "../../main/config"
-import { dramaList, performanceTestingEndpoints, searchValidationKeySet, searchValidationStrings, searchWithSpecialCharacters, sqlInjection } from "../../main/utils/DataGenerator";
+import { generateFullApiUrl } from "../../main/config"
+import { dramaList, searchValidationKeySet, searchValidationStrings, searchWithSpecialCharacters, sqlInjection } from "../../main/utils/DataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaListSchema } from "../../main/schemas/dramaListSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Search for dramas", () => {
+test.describe("Search for dramas", { tag: ['@regression'] }, () => {
     const ajv = new Ajv();
     addFormats(ajv);
     const validate = ajv.compile(dramaListSchema);
 
     dramaList.forEach((drama) => {
-        test(`Search for a drama by name of ${drama}`, { tag: ['@regression'] }, async ({ request }) => {
+        test(`Search for a drama by name of ${drama}`, async ({ request }) => {
             const response = await request.get(generateFullApiUrl(`/api/search/q/${drama}`));
             expect(response.status()).toBe(200);
             const result = await response.json();
@@ -23,7 +23,7 @@ test.describe("Search for dramas", () => {
         })
     })
 
-    test("Search for drama with missing drama name", { tag: ['@regression'] }, async ({ request }) => {
+    test("Search for drama with missing drama name", async ({ request }) => {
         const response = await request.get(generateFullApiUrl("/api/search/q/"));
         expect(response.status()).toBe(404);
 
@@ -33,7 +33,7 @@ test.describe("Search for dramas", () => {
 
     // Search validation testing different scenarios
     searchValidationKeySet.forEach((scenario: string) => {
-        test(`Search for a drama by name of ${scenario.replace("_", " ")}`, { tag: ['@regression'] }, async ({ request }) => {
+        test(`Search for a drama by name of ${scenario.replace("_", " ")}`, async ({ request }) => {
             const response = await request.get(generateFullApiUrl(`/api/search/q/${searchValidationStrings[scenario]}`));
             expect(response.status()).toBe(200);
 
@@ -44,7 +44,7 @@ test.describe("Search for dramas", () => {
         })
     })
 
-    test("Search for drama with special characters in search", { tag: ['@regression'] }, async ({ request }) => {
+    test("Search for drama with special characters in search", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/search/q/${searchWithSpecialCharacters}`));
         expect(response.status()).toBe(400);
         /* 

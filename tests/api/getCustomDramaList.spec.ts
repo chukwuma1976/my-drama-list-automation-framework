@@ -6,7 +6,7 @@ import { dramaCustomListSchema } from "../../main/schemas/dramaCustomListSchema"
 import { dramaListCodes } from "../../main/utils/DataGenerator";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get custom list dramas", () => {
+test.describe("Get custom list dramas", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);
@@ -14,7 +14,7 @@ test.describe("Get custom list dramas", () => {
 
     dramaListCodes.forEach((list) => {
 
-        test(`get custom drama list for ${list}`, { tag: ['@regression'] }, async ({ request }) => {
+        test(`get custom drama list for ${list}`, async ({ request }) => {
             const response = await request.get(generateFullApiUrl(`/api/list/${list}`));
             expect(response.status()).toBe(200);
             const result = await response.json();
@@ -25,14 +25,14 @@ test.describe("Get custom list dramas", () => {
 
     })
 
-    test("get drama for invalid list", { tag: ['@regression'] }, async ({ request }) => {
+    test("get drama for invalid list", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/list/invalid`));
         expect(response.status()).toBe(500);
         const result = await response.json();
         expect(result.detail.description).toBe("Internal server error");
     })
 
-    test("get drama for empty parameter list", { tag: ['@regression'] }, async ({ request }) => {
+    test("get drama for empty parameter list", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/list/`));
         expect(response.status()).toBe(404);
         const result = await response.json();

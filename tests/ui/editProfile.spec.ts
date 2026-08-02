@@ -5,7 +5,7 @@ import { LoginPage } from '../../main/pages/LoginPage';
 import { ProfilePage } from '../../main/pages/ProfilePage';
 import { updateInfo } from '../../main/utils/DataGenerator';
 
-test.describe("Test that user can edit their profile as end to end test", () => {
+test.describe("Test that user can edit their profile as end to end test", { tag: ['@regression'] }, () => {
     let loginPage: LoginPage;
     let navBar: NavBarComponent;
     let profilePage: ProfilePage;
@@ -18,7 +18,7 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         profilePage = new ProfilePage(page);
     })
 
-    test('Edit profile about me section', { tag: ['@regression'] }, async ({ page, browser }) => {
+    test('Edit profile about me section', async ({ page, browser }) => {
 
         //Navigate to profile section
         await profilePage.gotoProfilePage();
@@ -49,7 +49,7 @@ test.describe("Test that user can edit their profile as end to end test", () => 
         await context.close();
     });
 
-    test('Edit profile picture by uploading a non image file return a 500 server error', { tag: ['@regression'] }, async ({ page }) => {
+    test('Edit profile picture by uploading a non image file return a 500 server error', async ({ page }) => {
 
         //Navigate to profile section
         await profilePage.gotoProfilePage();

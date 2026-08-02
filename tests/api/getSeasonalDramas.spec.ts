@@ -5,7 +5,7 @@ import addFormats from "ajv-formats";
 import { seasonalDramasSchema } from "../../main/schemas/seasonalDramasSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get seasonal dramas", () => {
+test.describe("Get seasonal dramas", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);
@@ -13,7 +13,7 @@ test.describe("Get seasonal dramas", () => {
 
     [1, 2, 3, 4].forEach((season) => {
 
-        test(`get dramas for season ${season} of 2025`, { tag: ['@regression'] }, async ({ request }) => {
+        test(`get dramas for season ${season} of 2025`, async ({ request }) => {
             const response = await request.get(generateFullApiUrl(`/api/seasonal/2025/${season}`));
             expect(response.status()).toBe(200);
             const result = await response.json();
@@ -25,14 +25,14 @@ test.describe("Get seasonal dramas", () => {
 
     })
 
-    test("get drama for non existent (invalid) season", { tag: ['@regression'] }, async ({ request }) => {
+    test("get drama for non existent (invalid) season", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/seasonal/2025/5`));
         expect(response.status()).toBe(400);
         const result = await response.json();
         expect(result.detail.description).toBe("Quarter must be 1, 2, 3, or 4");
     })
 
-    test("get drama for negative number (invalid) season", { tag: ['@regression'] }, async ({ request }) => {
+    test("get drama for negative number (invalid) season", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/seasonal/2025/-1`));
         expect(response.status()).toBe(400);
         const result = await response.json();

@@ -6,7 +6,7 @@ import { CalendarPage } from '../../main/pages/CalendarPage';
 import { blockAds } from '../../main/utils/popupBlockers';
 import { currentQuarter, twoDigitYear } from '../../main/utils/DateTimeGenerator';
 
-test.describe("Check calendar page for currently airing dramas", () => {
+test.describe("Check calendar page for currently airing dramas", { tag: ['@regression'] }, () => {
 
     let airingDramas: any;
     let navBar: NavBarComponent;
@@ -23,11 +23,11 @@ test.describe("Check calendar page for currently airing dramas", () => {
         await navBar.confirmNavigationToCalendarPage();
     })
 
-    test('Check a drama that is airing for each day', { tag: ['@regression'] }, async ({ page }) => {
+    test('Check a drama that is airing for each day', async ({ page }) => {
         await calendarPage.checkEachDayForAiringDrama(airingDramas);
     });
 
-    test('Test toggle buttons and filter functions', { tag: ['@regression'] }, async ({ page }) => {
+    test('Test toggle buttons and filter functions', async ({ page }) => {
         await calendarPage.clickMyListToggleButton();
         const myListCount = await calendarPage.getCalendarCardCount();
 
@@ -43,7 +43,7 @@ test.describe("Check calendar page for currently airing dramas", () => {
         expect(filterCount).not.toBe(totalCount);
     });
 
-    test('Check for seasonal dramas', { tag: ['@regression'] }, async ({ page }) => {
+    test('Check for seasonal dramas', async ({ page }) => {
         await calendarPage.clickQuarterTab(currentQuarter, twoDigitYear);
         await calendarPage.confirmQuarterContainsMoreDramasThan(airingDramas);
     });

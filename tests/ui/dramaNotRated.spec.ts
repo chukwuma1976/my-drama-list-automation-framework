@@ -7,7 +7,7 @@ import { dramasToNotRate, dramaToBeIntercepted } from "../../main/utils/DataGene
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
 
-test.describe("Perform different actions with dramas", () => {
+test.describe("Perform different actions with dramas", { tag: ['@regression'] }, () => {
 
     let dramaPage: DramaDetailsPage;
     let navBar: NavBarComponent;
@@ -25,7 +25,7 @@ test.describe("Perform different actions with dramas", () => {
 
     dramasToNotRate.forEach((drama) => {
         const { slug, url, status } = drama;
-        test(`For a drama, select ${status} from dropdown menu does not allow ratings`, { tag: ['@regression'] }, async ({ page }) => {
+        test(`For a drama, select ${status} from dropdown menu does not allow ratings`, async ({ page }) => {
 
             await page.goto(generateFullUiUrl(slug));
             expect(page.url()).toBe(url);
@@ -38,7 +38,7 @@ test.describe("Perform different actions with dramas", () => {
         });
     })
 
-    test("Mock network interruption during submitting a rating", { tag: ['@regression'] }, async ({ page }) => {
+    test("Mock network interruption during submitting a rating", async ({ page }) => {
 
         const { slug, url, status } = dramaToBeIntercepted;
         await page.goto(generateFullUiUrl(slug));

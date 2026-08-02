@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 import { generateMockApiUrl, MOCK_API_URL } from "../../main/config";
 import { payloadForMockServerIntegrationTest } from "../../main/utils/DataGenerator";
 
-test.describe("Verify complete CRUD workflow for Mock MyDramaList Server", () => {
+test.describe("Verify complete CRUD workflow for Mock MyDramaList Server", { tag: ['@regression'] }, () => {
 
     const payload = payloadForMockServerIntegrationTest;
 
@@ -22,7 +22,7 @@ test.describe("Verify complete CRUD workflow for Mock MyDramaList Server", () =>
         await request.post(generateMockApiUrl("reset"))
     });
 
-    test("Integration test for mock My Drama List server", { tag: ['@regression'] }, async ({ request }) => {
+    test("Integration test for mock My Drama List server", async ({ request }) => {
 
         // Submit POST request to create a new drama"
         const response = await request.post(MOCK_API_URL, { data: payload });

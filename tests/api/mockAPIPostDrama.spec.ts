@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 import { generateMockApiUrl, MOCK_API_URL } from "../../main/config";
 import { existingPayloadSlug, payloadToPostInPostServer } from "../../main/utils/DataGenerator";
 
-test.describe("Testing POST method in mock my drama list API", () => {
+test.describe("Testing POST method in mock my drama list API", { tag: ['@regression'] }, () => {
 
     const payload = payloadToPostInPostServer;
 
@@ -22,14 +22,14 @@ test.describe("Testing POST method in mock my drama list API", () => {
         await request.post(generateMockApiUrl("reset"))
     });
 
-    test("Test POST request with positive scenario", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with positive scenario", async ({ request }) => {
         const response = await request.post(MOCK_API_URL, { data: payload });
         expect(response.status()).toBe(201);
         const result = await response.json();
         expect(result).toMatchObject(payload);
     })
 
-    test("Test POST request with adding existing resource", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with adding existing resource", async ({ request }) => {
         const res = await request.get(generateMockApiUrl(existingPayloadSlug));
         const existingPayload = await res.json();
 
@@ -40,7 +40,7 @@ test.describe("Testing POST method in mock my drama list API", () => {
         expect(result.message).toBe("Drama already exists.");
     })
 
-    test("Test POST request with non matching status", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with non matching status", async ({ request }) => {
         payload.slug = "non-matching-status"
         payload.status = "non matching"
         const response = await request.post(MOCK_API_URL, { data: payload });
@@ -51,7 +51,7 @@ test.describe("Testing POST method in mock my drama list API", () => {
         expect(result.errors).toContain('Invalid status');
     })
 
-    test("Test POST request with rating less than 0", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with rating less than 0", async ({ request }) => {
         payload.slug = "rating less than 0"
         payload.rating = "-9.5";
         const response = await request.post(MOCK_API_URL, { data: payload });
@@ -62,7 +62,7 @@ test.describe("Testing POST method in mock my drama list API", () => {
         expect(result.errors).toContain("Rating must be between 0 and 10");
     })
 
-    test("Test POST request with rating greater than 10", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with rating greater than 10", async ({ request }) => {
         payload.slug = "rating-greater-than-10"
         payload.rating = "10.5";
         const response = await request.post(MOCK_API_URL, { data: payload });
@@ -73,7 +73,7 @@ test.describe("Testing POST method in mock my drama list API", () => {
         expect(result.errors).toContain("Rating must be between 0 and 10");
     })
 
-    test("Test POST request with missing field", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with missing field", async ({ request }) => {
         payload.slug = "payload-with-missing-field"
         payload.rating = "";
         const response = await request.post(MOCK_API_URL, { data: payload });
@@ -84,7 +84,7 @@ test.describe("Testing POST method in mock my drama list API", () => {
         expect(result.errors).toContain("rating must be present");
     })
 
-    test("Test POST request with payload containing extra field", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with payload containing extra field", async ({ request }) => {
         const original = { ...payload }
         const extraFieldPayload = {
             ...payload,
@@ -99,7 +99,7 @@ test.describe("Testing POST method in mock my drama list API", () => {
         expect(result).toMatchObject(original);
     })
 
-    test("Test POST request with payload containing field of wrong type", { tag: ['@regression'] }, async ({ request }) => {
+    test("Test POST request with payload containing field of wrong type", async ({ request }) => {
         const payload = {
             "slug": "744135-the-killer-s-shopping-mall",
             "url": "https://mydramalist.com/744135-the-killer-s-shopping-mall",

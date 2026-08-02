@@ -6,13 +6,13 @@ import addFormats from "ajv-formats";
 import { dramaReviewsSchema } from "../../main/schemas/dramaReviewsSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get reviews", () => {
+test.describe("Get reviews", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);
     const validate = ajv.compile(dramaReviewsSchema);
 
-    test(`get reviews for all episodes in a drama`, { tag: ['@regression'] }, async ({ request }) => {
+    test(`get reviews for all episodes in a drama`, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/${dramaSlug}/reviews`));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -20,7 +20,7 @@ test.describe("Get reviews", () => {
         validateHeaders(response.headers());
     })
 
-    test("get reviews with an invalid parameter", { tag: ['@regression'] }, async ({ request }) => {
+    test("get reviews with an invalid parameter", async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/id/99999-invalid/reviews`));
         expect(response.status()).toBe(500);
         const result = await response.json();

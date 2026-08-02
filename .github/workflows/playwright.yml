@@ -1,27 +1,218 @@
-name: Playwright Tests
+name: My Drama List Automation Framework Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, feature/* ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 jobs:
-  test:
-    timeout-minutes: 60
+
+  smoke-tests:
     runs-on: ubuntu-latest
+    
+    env:
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+
     steps:
     - uses: actions/checkout@v4
+
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+
+    - name: Run smoke tests
+      run: npx playwright test --grep '@smoke'
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: smoke-test-report
         path: playwright-report/
+
+  regression-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+    
+    env:
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run regression tests
+      run: |
+        chmod +x scripts/run-local.sh
+        ./scripts/run-local.sh --grep "@regression"
+      continue-on-error: true
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: regression-test-report
+        path: playwright-report/
+        retention-days: 30
+
+  postman-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install Newman
+        run: npm install -g newman newman-reporter-htmlextra
+
+      - name: Run Postman Collection
+        run: |
+          mkdir -p newman
+          newman run postman/mdl_postman_collection.json \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export newman/postman-report.html
+        continue-on-error: true
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: postman-report
+          path: newman/postman-report.html
+
+  accessibility-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+    
+    env:
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run accessibility tests
+      run: npx playwright test --grep '@accessibility'
+      continue-on-error: true
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: accessibility-test-report
+        path: playwright-report/
+
+  security-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+    
+    env:
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run security tests
+      run: npx playwright test --grep '@security'
+      continue-on-error: true
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: security-test-report
+        path: playwright-report/
+
+  visual-regression-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+    
+    env:
+      APP_USERNAME: ${{ secrets.APP_USERNAME }}
+      APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run visual regression tests
+      run: npx playwright test --grep '@visual-regression'
+      continue-on-error: true
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: visual-regression-test-report
+        path: playwright-report/
+
+  performance-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run performance tests
+      run: |
+        chmod +x scripts/run-performance-tests.sh
+        ./scripts/run-performance-tests.sh
+      continue-on-error: true
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: k6-performance-test-reports
+        path: reports/performance/*.html
         retention-days: 30

@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
-import { sqlInjection } from '../../main/utils/dataGenerator';
+import { sqlInjection } from '../../main/utils/DataGenerator';
 import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 
 test.describe("Test for SQL injection", () => {

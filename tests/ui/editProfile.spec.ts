@@ -3,7 +3,7 @@ import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
 import { LoginPage } from '../../main/pages/LoginPage';
 import { ProfilePage } from '../../main/pages/ProfilePage';
-import { updateInfo } from '../../main/utils/dataGenerator';
+import { updateInfo } from '../../main/utils/DataGenerator';
 
 test.describe("Test that user can edit their profile as end to end test", () => {
     let loginPage: LoginPage;

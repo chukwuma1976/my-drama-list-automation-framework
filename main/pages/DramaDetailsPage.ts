@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { buttonStatuses } from "../utils/dataGenerator";
+import { buttonStatuses } from "../utils/DataGenerator";
 import { generateFullUiUrl } from "../config";
 
 export class DramaDetailsPage {

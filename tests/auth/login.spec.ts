@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { password, username } from '../../main/config';
 import { LoginPage } from '../../main/pages/LoginPage';
-import { missingCredentials, invalidCredentials } from '../../main/utils/dataGenerator';
+import { missingCredentials, invalidCredentials } from '../../main/utils/DataGenerator';
 import { blockAds } from '../../main/utils/popupBlockers';
 
 test.describe("Test login scenarios", () => {

@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
 import { generateFullApiUrl } from "../../main/config"
-import { dramaSlug } from "../../main/utils/dataGenerator";
+import { dramaSlug } from "../../main/utils/DataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaReviewsSchema } from "../../main/schemas/dramaReviewsSchema";

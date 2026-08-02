@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
 import { generateMockApiUrl } from "../../main/config";
-import { slugToBeDeletedInMockServer } from "../../main/utils/dataGenerator";
+import { slugToBeDeletedInMockServer } from "../../main/utils/DataGenerator";
 
 test.describe("Testing DELETE method in mock my drama list API", () => {
 

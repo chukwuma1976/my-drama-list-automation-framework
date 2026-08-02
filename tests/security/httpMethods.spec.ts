@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
-import { dramaMyDemon } from '../../main/utils/dataGenerator';
+import { dramaMyDemon } from '../../main/utils/DataGenerator';
 
 test.describe('API HTTP Verification methods', () => {
     // The endpoints for this particular API only have GET methods, all other methods return 405 Method not Supported

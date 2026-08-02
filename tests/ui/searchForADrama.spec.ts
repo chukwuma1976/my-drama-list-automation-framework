@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
-import { searchableDrama, searchWithSpecialCharacters } from '../../main/utils/dataGenerator';
+import { searchableDrama, searchWithSpecialCharacters } from '../../main/utils/DataGenerator';
 import { DramaDetailsPage } from '../../main/pages/DramaDetailsPage';
 import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 

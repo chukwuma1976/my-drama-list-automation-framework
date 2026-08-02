@@ -1,8 +1,8 @@
 import test, { expect } from "@playwright/test";
 import { generateMockApiUrl } from "../../main/config";
-import { slugToBeDeletedInMockServer } from "../../main/utils/DataGenerator";
+import { slugToBeDeletedInMockServer } from "../../main/utils/dataGenerator";
 
-test.describe("Testing PATCH method in mock my drama list API", () => {
+test.describe("Testing DELETE method in mock my drama list API", () => {
 
     const slug = slugToBeDeletedInMockServer;
 

@@ -373,7 +373,6 @@ scripts/run-performance-test.sh
 The helper script provides a single entry point for launching performance test profiles.
 
 ---
-
 ## Mock API
 
 The public MyDramaList API exposes only read-only GET endpoints.
@@ -393,7 +392,12 @@ The mock API was validated using Postman before being integrated into the Playwr
 
 This enables realistic end-to-end API automation using all major HTTP verbs while preserving business logic similar to the production application.
 
+### Authenticated API Testing
+
+Due to Cloudflare bot protection on the public MyDramaList API, authenticated API workflows were validated using Postman collections executed with Newman. The framework also includes a mock Express.js API that supports full CRUD operations for automated REST API testing without external authentication restrictions.
+
 ---
+
 # 💡 Design Principles
 
 The framework emphasizes:

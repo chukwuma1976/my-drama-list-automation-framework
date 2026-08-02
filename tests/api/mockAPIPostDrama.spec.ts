@@ -1,6 +1,6 @@
 import test, { expect } from "@playwright/test";
 import { generateMockApiUrl, MOCK_API_URL } from "../../main/config";
-import { existingPayloadSlug, payloadToPostInPostServer } from "../../main/utils/DataGenerator";
+import { existingPayloadSlug, payloadToPostInPostServer } from "../../main/utils/dataGenerator";
 
 test.describe("Testing POST method in mock my drama list API", () => {
 

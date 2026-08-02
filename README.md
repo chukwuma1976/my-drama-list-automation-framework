@@ -336,7 +336,7 @@ npx playwright show-report
 ### Run Entire Test Suite and Mock Server with Helper Script
 
 ```bash
-./run-local.sh
+scripts/run-local.sh
 ```
 ---
 
@@ -367,7 +367,7 @@ k6 run tests/performance/spike/standard.js
 ## Execute Using the Helper Script
 
 ```bash
-./run-performance-test.sh
+scripts/run-performance-test.sh
 ```
 
 The helper script provides a single entry point for launching performance test profiles.
@@ -460,6 +460,12 @@ The collection can also be executed from the command line using Newman.
 ```bash
 newman run postman/mock-mdl-postman-collection.json \
 -e postman/mock-mdl-postman-env.json
+```
+
+### Running the Collection and Mock Server
+
+```bash
+scripts/run-postman
 ```
 
 This executes the complete API workflow outside of Postman and is suitable for local validation or CI/CD integration.

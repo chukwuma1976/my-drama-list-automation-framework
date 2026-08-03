@@ -3,7 +3,6 @@ import { LoginPage } from "../../main/pages/LoginPage";
 import { blockAds, dismissNotification } from "../../main/utils/popupBlockers";
 
 test.describe("Visual regression testing for login page", { tag: ['@visual-regression'] }, () => {
-    test.skip(() => !!process.env.CI, "Will not run in CI/CD");
 
     let loginPage: LoginPage
 

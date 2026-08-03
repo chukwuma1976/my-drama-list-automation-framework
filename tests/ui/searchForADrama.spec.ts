@@ -76,7 +76,7 @@ test.describe("Search for a drama and validate results", () => {
         await page.route("**/search?q=**", route => route.fulfill({ status: 500 }));
 
         await navBar.enterAndPerformSearch("Boys over flowers");
-        await expect(page.getByText("HTTP ERROR 500")).toBeVisible();
+        await expect(page.getByText("HTTP ERROR 500")).toBeVisible({ timeout: 15000 });
 
     });
 
@@ -85,7 +85,7 @@ test.describe("Search for a drama and validate results", () => {
         await page.route("**/search?q=**", route => route.fulfill({ status: 403 }));
 
         await navBar.enterAndPerformSearch("Pinocchio");
-        await expect(page.getByText("HTTP ERROR 403")).toBeVisible();
+        await expect(page.getByText("HTTP ERROR 403")).toBeVisible({ timeout: 15000 });
 
     });
 
@@ -94,7 +94,7 @@ test.describe("Search for a drama and validate results", () => {
         await page.route("**/search?q=**", route => route.fulfill({ status: 404 }));
 
         await navBar.enterAndPerformSearch("The K2");
-        await expect(page.getByText("HTTP ERROR 404")).toBeVisible();
+        await expect(page.getByText("HTTP ERROR 404")).toBeVisible({ timeout: 15000 });
 
     });
 

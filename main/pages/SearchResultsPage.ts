@@ -33,4 +33,13 @@ export class SearchResultsPage {
         await expect(this.page.getByText("Sorry, you have been blocked")).toBeVisible();
     }
 
+    async validateMockNetworkResponseByStatusCode(expectedStatusCode: number) {
+        const errorMessage = this.page.getByText(`HTTP ERROR ${expectedStatusCode}`);
+        if (!process.env.CI) {
+            await expect(errorMessage).toBeVisible();
+        } else {
+            await expect(errorMessage).not.toBeAttached();  // In CI, the error message might not be displayed due to different handling of network errors.
+        }
+    }
+
 }

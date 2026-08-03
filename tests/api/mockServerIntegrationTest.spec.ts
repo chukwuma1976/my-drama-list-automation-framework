@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 import { generateMockApiUrl, MOCK_API_URL } from "../../main/config";
 import { payloadForMockServerIntegrationTest } from "../../main/utils/DataGenerator";
 
-test.describe("Verify complete CRUD workflow for Mock MyDramaList Server", () => {
+test.describe("Verify complete CRUD workflow for Mock MyDramaList Server", { tag: ['@regression'] }, () => {
 
     const payload = payloadForMockServerIntegrationTest;
 

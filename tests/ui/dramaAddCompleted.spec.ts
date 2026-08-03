@@ -7,7 +7,7 @@ import { dramaToAdd } from "../../main/utils/DataGenerator";
 import { DramaListPage } from "../../main/pages/DramaListPage";
 import { RatingsComponent } from "../../main/components/RatingsComponent";
 
-test.describe("Perform different actions with dramas", () => {
+test.describe("Perform different actions with dramas", { tag: ['@regression'] }, () => {
 
     let dramaPage: DramaDetailsPage;
     let navBar: NavBarComponent;

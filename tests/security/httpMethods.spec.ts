@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 import { dramaMyDemon } from '../../main/utils/DataGenerator';
 
-test.describe('API HTTP Verification methods', () => {
+test.describe('API HTTP Verification methods', { tag: ['@security'] }, () => {
     // The endpoints for this particular API only have GET methods, all other methods return 405 Method not Supported
 
     test('should handle GET request with ok response', async ({ request }) => {

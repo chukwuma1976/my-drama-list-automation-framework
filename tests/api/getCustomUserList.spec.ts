@@ -12,7 +12,7 @@ test.describe("Get custom list dramas", () => {
     addFormats(ajv);
     const validate = ajv.compile(dramaCustomUserListSchema);
 
-    test(`get a user drama list of 2025`, async ({ request }) => {
+    test(`get a user drama list of 2025`, { tag: ['@smoke', '@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/dramalist/${userListCode}`));
         expect(response.status()).toBe(200);
         const result = await response.json();
@@ -24,14 +24,14 @@ test.describe("Get custom list dramas", () => {
     })
 
 
-    test("get drama for invalid list", async ({ request }) => {
+    test("get drama for invalid list", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/dramalist/999invalid`));
         expect(response.status()).toBe(500);
         const result = await response.json();
         expect(result.detail.description).toBe("Internal server error");
     })
 
-    test("get drama for empty parameter list", async ({ request }) => {
+    test("get drama for empty parameter list", { tag: ['@regression'] }, async ({ request }) => {
         const response = await request.get(generateFullApiUrl(`/api/dramalist/`));
         expect(response.status()).toBe(404);
         const result = await response.json();

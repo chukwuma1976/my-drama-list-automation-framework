@@ -3,7 +3,7 @@ import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 import { NavBarComponent } from '../../main/components/NavBarComponent';
 import { blockAds } from '../../main/utils/popupBlockers';
 
-test.describe("Test special character injection", () => {
+test.describe("Test special character injection", { tag: ['@security'] }, () => {
 
     const specialCharacters = `!@#$%^&*()_+=~\`in {[]} | \\ : ; " <>, . ? / 🚀`
 

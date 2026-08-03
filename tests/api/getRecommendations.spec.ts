@@ -6,7 +6,7 @@ import addFormats from "ajv-formats";
 import { dramaRecommendations } from "../../main/schemas/dramaRecommendations";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get recommendations", () => {
+test.describe("Get recommendations", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);

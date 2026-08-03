@@ -7,7 +7,7 @@ import { EpisodesPage } from "../../main/pages/EpisodesPage";
 import { CastPage } from "../../main/pages/CastPage";
 import { RecsPage } from "../../main/pages/RecsPage";
 
-test.describe("Verify functionality of different pages", () => {
+test.describe("Verify functionality of different pages", { tag: ['@regression'] }, () => {
 
     let dramaDetailsPage: DramaDetailsPage;
     const { title, slug, url } = dramaVeilOfShadows;

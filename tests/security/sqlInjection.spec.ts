@@ -5,7 +5,7 @@ import { blockAds } from '../../main/utils/popupBlockers';
 import { sqlInjection } from '../../main/utils/DataGenerator';
 import { SearchResultsPage } from '../../main/pages/SearchResultsPage';
 
-test.describe("Test for SQL injection", () => {
+test.describe("Test for SQL injection", { tag: ['@security'] }, () => {
 
     test('Enter a search with SQL injection and expect the page to be blocked', async ({ page, request }) => {
 

@@ -6,7 +6,7 @@ import { dramaCustomListSchema } from "../../main/schemas/dramaCustomListSchema"
 import { dramaListCodes } from "../../main/utils/DataGenerator";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get custom list dramas", () => {
+test.describe("Get custom list dramas", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);

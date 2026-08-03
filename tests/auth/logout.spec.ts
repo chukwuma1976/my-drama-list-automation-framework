@@ -6,7 +6,7 @@ import { blockAds } from '../../main/utils/popupBlockers';
 
 test.describe("Test logout functionality", () => {
 
-    test('login with valid credentials then log out', async ({ page }) => {
+    test('login with valid credentials then log out', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
         await blockAds(page);
         const loginPage = new LoginPage(page);
         await loginPage.navigateToApp();

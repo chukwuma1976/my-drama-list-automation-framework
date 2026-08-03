@@ -5,7 +5,7 @@ import { dramaMyDemon } from "../../main/utils/DataGenerator";
 import { generateFullUiUrl } from "../../main/config";
 import { WriteReviewPage } from "../../main/pages/WriteReviewPage";
 
-test.describe("Write a review", () => {
+test.describe("Write a review", { tag: ['@regression'] }, () => {
 
     let dramaDetailsPage: DramaDetailsPage;
     let writeReviewPage: WriteReviewPage;

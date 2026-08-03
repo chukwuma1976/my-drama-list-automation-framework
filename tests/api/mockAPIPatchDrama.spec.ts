@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test";
 import { generateMockApiUrl } from "../../main/config";
 import { payloadToPatchInMockServer } from "../../main/utils/DataGenerator";
 
-test.describe("Testing PATCH method in mock my drama list API", () => {
+test.describe("Testing PATCH method in mock my drama list API", { tag: ['@regression'] }, () => {
 
     const payload = payloadToPatchInMockServer;
 

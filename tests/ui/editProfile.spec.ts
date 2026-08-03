@@ -5,7 +5,7 @@ import { LoginPage } from '../../main/pages/LoginPage';
 import { ProfilePage } from '../../main/pages/ProfilePage';
 import { updateInfo } from '../../main/utils/DataGenerator';
 
-test.describe("Test that user can edit their profile as end to end test", () => {
+test.describe("Test that user can edit their profile as end to end test", { tag: ['@regression'] }, () => {
     let loginPage: LoginPage;
     let navBar: NavBarComponent;
     let profilePage: ProfilePage;

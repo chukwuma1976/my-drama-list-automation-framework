@@ -4,7 +4,7 @@ import { NavBarComponent } from "../../main/components/NavBarComponent";
 import { SearchResultsPage } from "../../main/pages/SearchResultsPage";
 import { blockAds } from "../../main/utils/popupBlockers";
 
-test.describe("Test for extremely long input", () => {
+test.describe("Test for extremely long input", { tag: ['@security'] }, () => {
 
     const veryLongInput = "A".repeat(10000);
 

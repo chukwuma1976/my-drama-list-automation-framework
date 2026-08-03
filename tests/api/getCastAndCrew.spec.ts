@@ -6,7 +6,7 @@ import addFormats from "ajv-formats";
 import { dramaCastAndCrewSchema } from "../../main/schemas/dramaCastAndCrewSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get cast and crew", () => {
+test.describe("Get cast and crew", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);

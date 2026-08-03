@@ -6,7 +6,7 @@ import addFormats from "ajv-formats";
 import { dramaPersonSchema } from "../../main/schemas/dramaPersonSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get person details", () => {
+test.describe("Get person details", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);

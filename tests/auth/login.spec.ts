@@ -12,7 +12,7 @@ test.describe("Test login scenarios", () => {
     loginPage = new LoginPage(page);
   })
 
-  test('login with valid credentials', async ({ page }) => {
+  test('login with valid credentials', { tag: ['@smoke', '@regression'] }, async ({ page }) => {
     await loginPage.navigateToApp();
     await loginPage.clickLogin();
     await loginPage.loginUser(username, password);
@@ -21,7 +21,7 @@ test.describe("Test login scenarios", () => {
   });
 
   missingCredentials.forEach((credential) => {
-    test(`Testing login scenario: ${credential.scenario}`, async ({ page }) => {
+    test(`Testing login scenario: ${credential.scenario}`, { tag: ['@regression'] }, async ({ page }) => {
       await loginPage.navigateToApp();
       await loginPage.clickLogin();
       await loginPage.loginUser(credential.username, credential.password);
@@ -30,7 +30,7 @@ test.describe("Test login scenarios", () => {
   });
 
   invalidCredentials.forEach(async (credential) => {
-    test(`Testing login scenario: ${credential.scenario}`, async ({ page }) => {
+    test(`Testing login scenario: ${credential.scenario}`, { tag: ['@regression'] }, async ({ page }) => {
       await loginPage.navigateToApp();
       await loginPage.clickLogin();
       await loginPage.loginUser(credential.username, credential.password);

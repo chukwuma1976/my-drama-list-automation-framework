@@ -9,8 +9,6 @@ export const username = process.env.APP_USERNAME || "mdltester";
 export const password = process.env.APP_PASSWORD || "mdltester";
 export const email = process.env.APP_EMAIL || "mdltester@gmail.com";
 
-export const mdlPassword = process.env.MDL_PASSWORD;
-
 export const generateFullApiUrl = (path: string) => {
     return BASE_API_URL + path;
 }

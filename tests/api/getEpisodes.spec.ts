@@ -6,7 +6,7 @@ import addFormats from "ajv-formats";
 import { dramaEpisodesSchema } from "../../main/schemas/dramaEpisodesSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get drama episodes", () => {
+test.describe("Get drama episodes", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);

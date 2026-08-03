@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 
-test.describe("Test path traversal", () => {
+test.describe("Test path traversal", { tag: ['@security'] }, () => {
 
     // Define standard payloads for both Linux and Windows environments
     const payloads = [

@@ -5,7 +5,7 @@ import addFormats from "ajv-formats";
 import { dramasCurrentlyAiringSchema } from "../../main/schemas/dramasCurrentlyAiringSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Get currently airing dramas", () => {
+test.describe("Get currently airing dramas", { tag: ['@regression'] }, () => {
 
     const ajv = new Ajv();
     addFormats(ajv);

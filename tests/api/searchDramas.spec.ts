@@ -1,12 +1,12 @@
 import test, { expect } from "@playwright/test";
-import { BASE_API_URL, generateFullApiUrl } from "../../main/config"
-import { dramaList, performanceTestingEndpoints, searchValidationKeySet, searchValidationStrings, searchWithSpecialCharacters, sqlInjection } from "../../main/utils/DataGenerator";
+import { generateFullApiUrl } from "../../main/config"
+import { dramaList, searchValidationKeySet, searchValidationStrings, searchWithSpecialCharacters, sqlInjection } from "../../main/utils/DataGenerator";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { dramaListSchema } from "../../main/schemas/dramaListSchema";
 import { validateHeaders } from "../../main/utils/validateHeaders";
 
-test.describe("Search for dramas", () => {
+test.describe("Search for dramas", { tag: ['@regression'] }, () => {
     const ajv = new Ajv();
     addFormats(ajv);
     const validate = ajv.compile(dramaListSchema);

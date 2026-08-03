@@ -2,7 +2,7 @@ import test, { expect } from "@playwright/test"
 import { NavBarComponent } from "../../main/components/NavBarComponent"
 import { blockAds } from "../../main/utils/popupBlockers";
 
-test.describe("check contents and functionality of navigation bar", () => {
+test.describe("check contents and functionality of navigation bar", { tag: ['@regression'] }, () => {
 
     let navBar: NavBarComponent;
 

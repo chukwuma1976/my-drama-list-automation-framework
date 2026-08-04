@@ -7,7 +7,6 @@ import { RatingsComponent } from "../../main/components/RatingsComponent";
 import { WriteReviewPage } from "../../main/pages/WriteReviewPage";
 
 test.describe("Visual regression testing", { tag: ['@visual-regression'] }, () => {
-    test.skip(() => !!process.env.CI, "Will not run in CI/CD");
 
     let dramaDetailsPage: DramaDetailsPage;
     let reviewPage: WriteReviewPage;

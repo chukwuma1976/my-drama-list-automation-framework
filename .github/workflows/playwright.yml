@@ -100,6 +100,33 @@ jobs:
           name: postman-report
           path: newman/postman-report.html
 
+  database-tests:
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: lts/*
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    - name: Run database tests
+      run: npx playwright test --grep '@database'
+      continue-on-error: true
+      
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: database-test-report
+        path: playwright-report/
+        retention-days: 30
+
   accessibility-tests:
     needs: smoke-tests
     runs-on: ubuntu-latest

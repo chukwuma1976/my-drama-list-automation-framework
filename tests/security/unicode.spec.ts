@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { generateFullApiUrl } from '../../main/config';
 
-test.describe("Test path traversal", { tag: ['@security'] }, () => {
+test.describe("Test unicode", { tag: ['@security'] }, () => {
 
     // Define unicode payloads
     const payloads = [

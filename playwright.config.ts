@@ -49,7 +49,8 @@ export default defineConfig({
         /tests\/auth\/.*\.spec\.ts/,
         /tests\/api\/.*\.spec\.ts/,
         /authVisualRegression/,
-        /authAccessibility/
+        /authAccessibility/,
+        /DatabaseTest/
       ],
       use: {
         ...devices['Desktop Chrome'],
@@ -64,7 +65,8 @@ export default defineConfig({
         /tests\/auth\/.*\.spec\.ts/,
         /tests\/api\/.*\.spec\.ts/,
         /authVisualRegression/,
-        /authAccessibility/
+        /authAccessibility/,
+        /DatabaseTest/
       ],
       use: {
         ...devices['Desktop Chrome'],

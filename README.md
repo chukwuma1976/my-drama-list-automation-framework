@@ -259,6 +259,7 @@ tests/
 ├── accessibility/
 ├── api/
 ├── auth/
+├── db/
 ├── integration/
 ├── performance/
 ├── security/
@@ -266,12 +267,15 @@ tests/
 └── visualRegression/
 
 main/
-├── api/
+├── components/
 ├── pages/
-└── utils/
+├── api/
+├── resources/
+├── schemas/
+└── config.ts
 
 playwright/
-└── auth/
+└── .auth/
 ```
 
 ---
@@ -473,6 +477,24 @@ scripts/run-postman
 ```
 
 This executes the complete API workflow outside of Postman and is suitable for local validation or CI/CD integration.
+---
+## 🗄️ Database Validation with Testcontainers
+
+The framework includes database-level validation using **Testcontainers** to verify that the application's read and update operations correctly interact with the underlying database.
+
+Database tests validate both expected business behavior and database constraints, including:
+
+* Reading individual drama records by slug
+* Retrieving collections of dramas and verifying unique IDs
+* Updating drama status and ratings and verifying persistence
+* Validating `NULL` ratings for unrated dramas
+* Verifying database constraints reject invalid status values
+* Validating data type enforcement for rating values
+* Confirming non-existent drama records return no results
+
+The database is started in an isolated **Testcontainers** environment for the test suite and stopped after execution.
+
+This provides an additional layer of validation beyond UI and API testing, allowing the framework to verify that data is not only displayed correctly but also **persisted and constrained correctly at the database level**.
 ---
 
 # 🔮 Future Enhancements

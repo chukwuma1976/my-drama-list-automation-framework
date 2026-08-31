@@ -1,8 +1,14 @@
 # 🎬 MyDramaList Automation Framework
 
+![Version](https://img.shields.io/badge/version-v1.0.0-blue)
+
 A comprehensive end-to-end automation framework built with **Playwright**, **TypeScript**, **REST API testing**, and **k6** against the public MyDramaList API.
 
 This project demonstrates modern SDET practices by combining **UI automation**, **API testing**, **integration testing**, **security testing**, **accessibility testing**, **visual regression testing**, **network interception**, **authentication management**, and **performance testing**.
+
+## 🎬 YouTube Demo
+
+[![YouTube Demo](https://img.youtube.com/vi/1BpcZvjPPCw/maxresdefault.jpg)](https://youtu.be/1BpcZvjPPCw)
 
 ---
 
